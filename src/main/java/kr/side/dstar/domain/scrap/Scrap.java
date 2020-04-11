@@ -16,7 +16,6 @@ public class Scrap {
 
     private String url;
 
-    @Column(columnDefinition = "MEDIUMTEXT")
     private String data;
 
     private Long userId;
