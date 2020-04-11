@@ -1,5 +1,6 @@
 package kr.side.dstar.domain.scrap;
 
+import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +18,10 @@ public class ScrapRepositoryTest {
     @Autowired
     ScrapRepository scrapRepository;
 
-    /*
     @After
     public void cleanUp() {
         scrapRepository.deleteAll();
     }
-    */
 
     @Test
     public void save() {
