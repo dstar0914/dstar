@@ -25,4 +25,9 @@ public class Scrap {
         this.url    = url;
         this.data   = data;
     }
+
+    public void update(String url, String data) {
+        this.url    = url;
+        this.data   = data;
+    }
 }
