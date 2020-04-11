@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -38,5 +39,23 @@ public class ScrapRepositoryTest {
         Scrap scrap = scrapList.get(0);
         assertThat(scrap.getUrl()).isEqualTo(url);
         assertThat(scrap.getData()).isEqualTo(data);
+    }
+
+    @Test
+    public void baseTimeEntitySave() {
+        LocalDateTime now = LocalDateTime.of(2019,6,4,0,0,0);
+
+        scrapRepository.save(Scrap.builder()
+                .url("url")
+                .data("data")
+                .build());
+
+        List<Scrap> scrapList = scrapRepository.findAll();
+
+        Scrap scrap = scrapList.get(0);
+
+        System.out.println(">>>>> created="+scrap.getCreatedAt());
+
+        assertThat(scrap.getCreatedAt()).isAfter(now);
     }
 }
