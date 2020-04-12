@@ -24,10 +24,10 @@ public class UserRepositoryTest {
 
     @Test
     public void save() {
-        String name     = "user1";
-        String status   = "AUTHORIZED";
-        String phone    = "010-1234-1234";
-        String email    = "user1@email.com";
+        String name         = "user1";
+        UserStatus status   = UserStatus.AUTHORIZED;
+        String phone        = "010-1234-1234";
+        String email        = "user1@email.com";
 
         userRepository.save(User.builder()
                 .name(name)

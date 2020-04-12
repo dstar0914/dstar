@@ -5,10 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor
@@ -20,14 +17,15 @@ public class User extends BaseTimeEntity {
 
     private String name;
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private UserStatus status;
 
     private String phone;
 
     private String email;
 
     @Builder
-    public User(String name, String status, String phone, String email) {
+    public User(String name, UserStatus status, String phone, String email) {
         this.name   = name;
         this.status = status;
         this.phone  = phone;
