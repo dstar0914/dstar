@@ -6,7 +6,35 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
-    <h1>스프링 부트</h1>
+    <h1>스프링부트로 시작하는 웹 서비스 Ver.4</h1>
+    <div class="col-md-12">
+        <input type="text" name="url" class="form-control">
+        <textarea name="data" class="form-control"></textarea>
+
+        <button type="button" class="btn btn-primary submit_btn" data-type="save">등록</button>
+
+        <!-- 목록 출력 영역 -->
+        <table class="table table-horizontal table-bordered">
+            <thead class="thead-strong">
+            <tr>
+                <th>번호</th>
+                <th>URL</th>
+                <th>내용</th>
+                <th>등록일</th>
+            </tr>
+            </thead>
+            <tbody id="tbody">
+                {{# scrap}}
+                    <tr>
+                        <td>{{id}}</td>
+                        <td>{{url}}</td>
+                        <td>{{data}}</td>
+                        <td>{{createdAt}}</td>
+                    </tr>
+                {{/scrap}}
+            </tbody>
+        </table>
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
