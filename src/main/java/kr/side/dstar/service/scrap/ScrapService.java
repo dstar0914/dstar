@@ -34,6 +34,14 @@ public class ScrapService {
         return id;
     }
 
+    @Transactional
+    public void delete(Long id) {
+        Scrap scrap = scrapRepository.findById(id)
+                .orElseThrow( () -> new IllegalArgumentException("해당 게시글이 없습니다. id="+id) );
+
+        scrapRepository.delete(scrap);
+    }
+
     public ScrapResponseDto findById(Long id) {
         Scrap entity = scrapRepository.findById(id)
                 .orElseThrow( () -> new IllegalArgumentException("해당 게시글이 없습니다. id="+id) );

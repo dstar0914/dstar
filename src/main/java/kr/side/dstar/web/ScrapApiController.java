@@ -22,6 +22,12 @@ public class ScrapApiController {
         return scrapService.update(id, requestDto);
     }
 
+    @DeleteMapping("/api/scrap/{id}")
+    public Long delete(@PathVariable Long id) {
+        scrapService.delete(id);
+        return id;
+    }
+
     @GetMapping("/api/scrap/{id}")
     public ScrapResponseDto findById(@PathVariable Long id) {
         return scrapService.findById(id);
