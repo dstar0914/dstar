@@ -31,4 +31,15 @@ public class User extends BaseTimeEntity {
         this.phone  = phone;
         this.email  = email;
     }
+
+    public User update(String name, String phone) {
+        this.name   = name;
+        this.phone  = phone;
+
+        return this;
+    }
+
+    public String getStatusKey() {
+        return this.status.getKey();
+    }
 }
