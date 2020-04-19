@@ -5,8 +5,10 @@ import kr.side.dstar.web.dto.ScrapResponseDto;
 import kr.side.dstar.web.dto.ScrapSaveRequestDto;
 import kr.side.dstar.web.dto.ScrapUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RequiredArgsConstructor
 @RestController
 public class ScrapApiController {
