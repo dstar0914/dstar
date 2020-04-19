@@ -1,6 +1,7 @@
 package kr.side.dstar.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import kr.side.dstar.common.RestDocsConfiguration;
 import kr.side.dstar.domain.scrap.Scrap;
 import kr.side.dstar.domain.scrap.ScrapRepository;
 import kr.side.dstar.web.dto.ScrapSaveRequestDto;
@@ -10,10 +11,12 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.context.annotation.Import;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -22,6 +25,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -29,7 +33,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @Slf4j
 @AutoConfigureMockMvc
+@AutoConfigureRestDocs
 @RunWith(SpringRunner.class)
+@Import(RestDocsConfiguration.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ScrapApiControllerTest {
     @LocalServerPort
@@ -73,7 +79,8 @@ public class ScrapApiControllerTest {
                 .andExpect(jsonPath("id").exists())
                 .andExpect(jsonPath("_links.self").exists())
                 .andExpect(jsonPath("_links.query-scrap").exists())
-                .andExpect(jsonPath("_links.update-scrap").exists());
+                .andExpect(jsonPath("_links.update-scrap").exists())
+                .andDo(document("create-scrap"));
     }
 
     /*
