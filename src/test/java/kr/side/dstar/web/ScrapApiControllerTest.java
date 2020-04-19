@@ -87,12 +87,14 @@ public class ScrapApiControllerTest {
                 .andExpect(jsonPath("_links.self").exists())
                 .andExpect(jsonPath("_links.query-scrap").exists())
                 .andExpect(jsonPath("_links.update-scrap").exists())
+                .andExpect(jsonPath("_links.profile").exists())
                 .andDo(document(
                         "create-scrap",
                         links(
                                 linkWithRel("self").description("link to self"),
                                 linkWithRel("query-scrap").description("link to query-scrap"),
-                                linkWithRel("update-scrap").description("link to update-scrap")
+                                linkWithRel("update-scrap").description("link to update-scrap"),
+                                linkWithRel("profile").description("link to profile")
                         ),
                         requestHeaders(
                                 headerWithName(HttpHeaders.ACCEPT).description("request header"),
@@ -112,7 +114,8 @@ public class ScrapApiControllerTest {
                                 fieldWithPath("data").description("scrap data"),
                                 fieldWithPath("_links.self.href").description("links to self"),
                                 fieldWithPath("_links.query-scrap.href").description("links to query-scrap"),
-                                fieldWithPath("_links.update-scrap.href").description("links to update-scrap")
+                                fieldWithPath("_links.update-scrap.href").description("links to update-scrap"),
+                                fieldWithPath("_links.profile.href").description("links to profile")
                         )
                 ));
     }

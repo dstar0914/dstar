@@ -2,6 +2,7 @@ package kr.side.dstar.domain.scrap;
 
 import kr.side.dstar.web.ScrapApiController;
 import lombok.Getter;
+import org.springframework.hateoas.Link;
 import org.springframework.hateoas.RepresentationModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 
@@ -23,5 +24,6 @@ public class ScrapResource extends RepresentationModel {
         add(selfLinkBuilder.withSelfRel());
         add(selfLinkBuilder.withRel("query-scrap"));
         add(selfLinkBuilder.withRel("update-scrap"));
+        add(new Link("/docs/index.html#resources-scrap-create").withRel("profile"));
     }
 }
