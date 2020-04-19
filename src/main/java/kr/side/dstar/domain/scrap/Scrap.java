@@ -1,7 +1,6 @@
 package kr.side.dstar.domain.scrap;
 
 import kr.side.dstar.domain.BaseTimeEntity;
-import kr.side.dstar.web.dto.ScrapResponseDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,11 +30,11 @@ public class Scrap extends BaseTimeEntity {
         this.data   = data;
     }
 
-    public ScrapResponseDto update(String url, String data) {
+    public ScrapResource update(String url, String data) {
         this.url    = url;
         this.data   = data;
 
-        ScrapResponseDto responseDto = new ScrapResponseDto(this);
+        ScrapResource responseDto = new ScrapResource(this);
 
         return responseDto;
     }

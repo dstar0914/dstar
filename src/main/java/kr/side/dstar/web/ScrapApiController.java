@@ -1,7 +1,7 @@
 package kr.side.dstar.web;
 
+import kr.side.dstar.domain.scrap.ScrapResource;
 import kr.side.dstar.service.scrap.ScrapService;
-import kr.side.dstar.web.dto.ScrapResponseDto;
 import kr.side.dstar.web.dto.ScrapSaveRequestDto;
 import kr.side.dstar.web.dto.ScrapUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
@@ -15,12 +15,14 @@ public class ScrapApiController {
     private final ScrapService scrapService;
 
     @PostMapping("/api/scrap")
-    public ScrapResponseDto save(@RequestBody ScrapSaveRequestDto requestDto) {
+    public ScrapResource save(@RequestBody ScrapSaveRequestDto requestDto) {
+        ScrapResource result = scrapService.save(requestDto);
+
         return scrapService.save(requestDto);
     }
 
     @PutMapping("/api/scrap/{id}")
-    public ScrapResponseDto update(@PathVariable Long id, @RequestBody ScrapUpdateRequestDto requestDto) {
+    public ScrapResource update(@PathVariable Long id, @RequestBody ScrapUpdateRequestDto requestDto) {
         return scrapService.update(id, requestDto);
     }
 
@@ -31,7 +33,7 @@ public class ScrapApiController {
     }
 
     @GetMapping("/api/scrap/{id}")
-    public ScrapResponseDto findById(@PathVariable Long id) {
+    public ScrapResource findById(@PathVariable Long id) {
         return scrapService.findById(id);
     }
 }

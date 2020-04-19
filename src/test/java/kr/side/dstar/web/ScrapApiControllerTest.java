@@ -4,26 +4,31 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import kr.side.dstar.domain.scrap.Scrap;
 import kr.side.dstar.domain.scrap.ScrapRepository;
 import kr.side.dstar.web.dto.ScrapSaveRequestDto;
-import kr.side.dstar.web.dto.ScrapUpdateRequestDto;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @Slf4j
+@AutoConfigureMockMvc
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ScrapApiControllerTest {
@@ -32,6 +37,9 @@ public class ScrapApiControllerTest {
 
     @Autowired
     ObjectMapper objectMapper;
+
+    @Autowired
+    MockMvc mockMvc;
 
     @Autowired
     private TestRestTemplate restTemplate;
@@ -51,6 +59,31 @@ public class ScrapApiControllerTest {
         String data = "<html></html>";
 
         ScrapSaveRequestDto requestDto = ScrapSaveRequestDto.builder()
+                .url(url)
+                .data(data)
+                .build();
+
+        //when, then
+        mockMvc.perform(post("/api/scrap")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaTypes.HAL_JSON)
+                .content(objectMapper.writeValueAsString(requestDto)))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("id").exists())
+                .andExpect(jsonPath("_links.self").exists())
+                .andExpect(jsonPath("_links.query-scrap").exists())
+                .andExpect(jsonPath("_links.update-scrap").exists());
+    }
+
+    /*
+    @Test
+    public void save() throws Exception {
+        //given
+        String url  = "http://naver.com";
+        String data = "<html></html>";
+
+        ScrapSaveRequestDto requestDto = ScrapSaveRequestDto.builder()
                                         .url(url)
                                         .data(data)
                                         .build();
@@ -59,12 +92,16 @@ public class ScrapApiControllerTest {
 
         //when
         ResponseEntity<Map> responseEntity = restTemplate.postForEntity(testUrl, requestDto, Map.class);
-        log.info("{}",responseEntity.getBody());
+        log.info("{}",responseEntity);
         log.info("{}",responseEntity.getBody().get("id"));
 
         //then
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(responseEntity.getBody().get("id")).isNotNull();
+
+        assertThat(responseEntity.getBody().get("_links.self")).isNotNull();
+        assertThat(responseEntity.getBody().get("_links.query-events")).isNotNull();
+        assertThat(responseEntity.getBody().get("_links.update-event")).isNotNull();
 
         List<Scrap> all = scrapRepository.findAll();
         Scrap scrap     = all.get(0);
@@ -109,6 +146,7 @@ public class ScrapApiControllerTest {
         assertThat(scrap.getUrl()).isEqualTo(expectedUrl);
         assertThat(scrap.getData()).isEqualTo(expectedData);
     }
+     */
 
     @Test
     public void delete() throws Exception {

@@ -3,7 +3,7 @@ package kr.side.dstar.service.scrap;
 import kr.side.dstar.domain.scrap.Scrap;
 import kr.side.dstar.domain.scrap.ScrapRepository;
 import kr.side.dstar.web.dto.ScrapListReponseDto;
-import kr.side.dstar.web.dto.ScrapResponseDto;
+import kr.side.dstar.domain.scrap.ScrapResource;
 import kr.side.dstar.web.dto.ScrapSaveRequestDto;
 import kr.side.dstar.web.dto.ScrapUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
@@ -19,18 +19,18 @@ public class ScrapService {
     private final ScrapRepository scrapRepository;
 
     @Transactional
-    public ScrapResponseDto save(ScrapSaveRequestDto requestDto) {
+    public ScrapResource save(ScrapSaveRequestDto requestDto) {
         Scrap saveScrap = scrapRepository.save(requestDto.toEntity());
 
-        return new ScrapResponseDto(saveScrap);
+        return new ScrapResource(saveScrap);
     }
 
     @Transactional
-    public ScrapResponseDto update(Long id, ScrapUpdateRequestDto requestDto) {
+    public ScrapResource update(Long id, ScrapUpdateRequestDto requestDto) {
         Scrap scrap = scrapRepository.findById(id)
                 .orElseThrow( () -> new IllegalArgumentException("해당 게시글이 없습니다. id="+id) );
 
-        ScrapResponseDto updateScrap = scrap.update(requestDto.getUrl(), requestDto.getData());
+        ScrapResource updateScrap = scrap.update(requestDto.getUrl(), requestDto.getData());
         return updateScrap;
         /* scrap 자체를 리턴해보기 */
     }
@@ -43,11 +43,11 @@ public class ScrapService {
         scrapRepository.delete(scrap);
     }
 
-    public ScrapResponseDto findById(Long id) {
+    public ScrapResource findById(Long id) {
         Scrap entity = scrapRepository.findById(id)
                 .orElseThrow( () -> new IllegalArgumentException("해당 게시글이 없습니다. id="+id) );
 
-        return new ScrapResponseDto(entity);
+        return new ScrapResource(entity);
     }
 
     @Transactional(readOnly = true)
