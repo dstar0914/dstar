@@ -15,12 +15,12 @@ public class ScrapApiController {
     private final ScrapService scrapService;
 
     @PostMapping("/api/scrap")
-    public Long save(@RequestBody ScrapSaveRequestDto requestDto) {
+    public ScrapResponseDto save(@RequestBody ScrapSaveRequestDto requestDto) {
         return scrapService.save(requestDto);
     }
 
     @PutMapping("/api/scrap/{id}")
-    public Long update(@PathVariable Long id, @RequestBody ScrapUpdateRequestDto requestDto) {
+    public ScrapResponseDto update(@PathVariable Long id, @RequestBody ScrapUpdateRequestDto requestDto) {
         return scrapService.update(id, requestDto);
     }
 

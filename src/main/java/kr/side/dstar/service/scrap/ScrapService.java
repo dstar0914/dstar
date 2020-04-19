@@ -19,18 +19,20 @@ public class ScrapService {
     private final ScrapRepository scrapRepository;
 
     @Transactional
-    public Long save(ScrapSaveRequestDto requestDto) {
-        return scrapRepository.save(requestDto.toEntity()).getId();
+    public ScrapResponseDto save(ScrapSaveRequestDto requestDto) {
+        Scrap saveScrap = scrapRepository.save(requestDto.toEntity());
+
+        return new ScrapResponseDto(saveScrap);
     }
 
     @Transactional
-    public Long update(Long id, ScrapUpdateRequestDto requestDto) {
+    public ScrapResponseDto update(Long id, ScrapUpdateRequestDto requestDto) {
         Scrap scrap = scrapRepository.findById(id)
                 .orElseThrow( () -> new IllegalArgumentException("해당 게시글이 없습니다. id="+id) );
 
-        scrap.update(requestDto.getUrl(), requestDto.getData());
-
-        return id;
+        ScrapResponseDto updateScrap = scrap.update(requestDto.getUrl(), requestDto.getData());
+        return updateScrap;
+        /* scrap 자체를 리턴해보기 */
     }
 
     @Transactional
