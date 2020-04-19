@@ -5,6 +5,7 @@ import kr.side.dstar.common.RestDocsConfiguration;
 import kr.side.dstar.domain.scrap.Scrap;
 import kr.side.dstar.domain.scrap.ScrapRepository;
 import kr.side.dstar.web.dto.ScrapSaveRequestDto;
+import kr.side.dstar.web.dto.ScrapUpdateRequestDto;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.After;
 import org.junit.Assert;
@@ -22,10 +23,16 @@ import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.restdocs.headers.HeaderDocumentation.*;
+import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.linkWithRel;
+import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.links;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -80,7 +87,34 @@ public class ScrapApiControllerTest {
                 .andExpect(jsonPath("_links.self").exists())
                 .andExpect(jsonPath("_links.query-scrap").exists())
                 .andExpect(jsonPath("_links.update-scrap").exists())
-                .andDo(document("create-scrap"));
+                .andDo(document(
+                        "create-scrap",
+                        links(
+                                linkWithRel("self").description("link to self"),
+                                linkWithRel("query-scrap").description("link to query-scrap"),
+                                linkWithRel("update-scrap").description("link to update-scrap")
+                        ),
+                        requestHeaders(
+                                headerWithName(HttpHeaders.ACCEPT).description("request header"),
+                                headerWithName(HttpHeaders.CONTENT_TYPE).description("request content type")
+                        ),
+                        requestFields(
+                                fieldWithPath("url").description("scrap url"),
+                                fieldWithPath("data").description("scrap data")
+                        ),
+                        responseHeaders(
+                                //headerWithName(HttpHeaders.LOCATION).description("response header"), 왜 에러나는지 모르겠음
+                                headerWithName(HttpHeaders.CONTENT_TYPE).description("response content type")
+                        ),
+                        responseFields(
+                                fieldWithPath("id").description("scrap id"),
+                                fieldWithPath("url").description("scrap url"),
+                                fieldWithPath("data").description("scrap data"),
+                                fieldWithPath("_links.self.href").description("links to self"),
+                                fieldWithPath("_links.query-scrap.href").description("links to query-scrap"),
+                                fieldWithPath("_links.update-scrap.href").description("links to update-scrap")
+                        )
+                ));
     }
 
     /*
@@ -116,6 +150,7 @@ public class ScrapApiControllerTest {
         assertThat(scrap.getUrl()).isEqualTo(url);
         assertThat(scrap.getData()).isEqualTo(data);
     }
+    */
 
     @Test
     public void update() throws Exception {
@@ -153,7 +188,6 @@ public class ScrapApiControllerTest {
         assertThat(scrap.getUrl()).isEqualTo(expectedUrl);
         assertThat(scrap.getData()).isEqualTo(expectedData);
     }
-     */
 
     @Test
     public void delete() throws Exception {
