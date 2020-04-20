@@ -4,7 +4,6 @@ import kr.side.dstar.domain.scrap.Scrap;
 import kr.side.dstar.domain.scrap.ScrapRepository;
 import kr.side.dstar.domain.scrap.ScrapResponseDto;
 import kr.side.dstar.web.dto.ScrapListReponseDto;
-import kr.side.dstar.domain.scrap.ScrapResource;
 import kr.side.dstar.web.dto.ScrapSaveRequestDto;
 import kr.side.dstar.web.dto.ScrapUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
@@ -41,11 +40,11 @@ public class ScrapService {
         scrapRepository.delete(scrap);
     }
 
-    public ScrapResource findById(Long id) {
+    public ScrapResponseDto findById(Long id) {
         Scrap entity = scrapRepository.findById(id)
                 .orElseThrow( () -> new IllegalArgumentException("해당 게시글이 없습니다. id="+id) );
 
-        return new ScrapResource(entity);
+        return new ScrapResponseDto(entity);
     }
 
     @Transactional(readOnly = true)

@@ -69,8 +69,18 @@ public class ScrapApiController {
     }
 
     @GetMapping("{id}")
-    public ScrapResource findById(@PathVariable Long id) {
-        return scrapService.findById(id);
+    public ResponseEntity findById(@PathVariable Long id) {
+        ScrapResponseDto responseDto = scrapService.findById(id);
+
+        ScrapResource scrapResource = new ScrapResource(responseDto);
+
+        WebMvcLinkBuilder selfLinkBuilder = linkTo(ScrapApiController.class).slash(responseDto.getId());
+
+        scrapResource.add(selfLinkBuilder.withRel("query-scrap"));
+        scrapResource.add(selfLinkBuilder.withRel("update-scrap"));
+        scrapResource.add(new Link("/docs/index.html#resources-scrap-get").withRel("profile"));
+
+        return ResponseEntity.ok(scrapResource);
     }
 
     @GetMapping

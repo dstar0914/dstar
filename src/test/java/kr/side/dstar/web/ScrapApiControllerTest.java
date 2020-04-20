@@ -145,7 +145,7 @@ public class ScrapApiControllerTest {
                 .build();
 
         //when, then
-        mockMvc.perform(put("/api/scrap/"+updateId)
+        mockMvc.perform(put("/api/scrap/{id}",updateId)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaTypes.HAL_JSON)
                 .content(objectMapper.writeValueAsString(requestDto)))
@@ -185,6 +185,54 @@ public class ScrapApiControllerTest {
                                 fieldWithPath("_links.self.href").description("links to self"),
                                 fieldWithPath("_links.query-scrap.href").description("links to query-scrap"),
                                 fieldWithPath("_links.create-scrap.href").description("links to update-scrap"),
+                                fieldWithPath("_links.profile.href").description("links to profile")
+                        )
+                ));
+    }
+    
+    @Test
+    public void getScrap() throws Exception {
+        //given
+        String url  = "asd";
+        String data = "<html></html>";
+
+        Scrap savedScrap = scrapRepository.save(Scrap.builder()
+                .url(url)
+                .data(data)
+                .build());
+
+        Long savedId = savedScrap.getId();
+
+        //when, then
+        mockMvc.perform(get("/api/scrap/{id}", savedId))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("id").exists())
+                .andExpect(jsonPath("_links.self").exists())
+                .andExpect(jsonPath("_links.query-scrap").exists())
+                .andExpect(jsonPath("_links.update-scrap").exists())
+                .andExpect(jsonPath("_links.profile").exists())
+                .andDo(document(
+                        "get-scrap",
+                        links(
+                                linkWithRel("self").description("link to self"),
+                                linkWithRel("query-scrap").description("link to query-scrap"),
+                                linkWithRel("update-scrap").description("link to create-scrap"),
+                                linkWithRel("profile").description("link to profile")
+                        ),
+                        responseHeaders(
+                                //headerWithName(HttpHeaders.LOCATION).description("response header"), 왜 에러나는지 모르겠음
+                                headerWithName(HttpHeaders.CONTENT_TYPE).description("response content type")
+                        ),
+                        responseFields(
+                                fieldWithPath("id").description("scrap id"),
+                                fieldWithPath("url").description("scrap url"),
+                                fieldWithPath("data").description("scrap data"),
+                                fieldWithPath("createdAt").description("scrap createdAt"),
+                                //fieldWithPath("userId").description("scrap userId"),
+                                fieldWithPath("_links.self.href").description("links to self"),
+                                fieldWithPath("_links.query-scrap.href").description("links to query-scrap"),
+                                fieldWithPath("_links.update-scrap.href").description("links to update-scrap"),
                                 fieldWithPath("_links.profile.href").description("links to profile")
                         )
                 ));
