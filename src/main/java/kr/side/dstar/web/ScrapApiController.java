@@ -58,10 +58,10 @@ public class ScrapApiController {
         return id;
     }
 
-    //@GetMapping("{id}")
-//    public ScrapResource findById(@PathVariable Long id) {
-//        return scrapService.findById(id);
-//    }
+    @GetMapping("{id}")
+    public ScrapResource findById(@PathVariable Long id) {
+        return scrapService.findById(id);
+    }
 
     @GetMapping
     public ResponseEntity getList(Pageable pageable, PagedResourcesAssembler<Scrap> assembler) {

@@ -42,12 +42,12 @@ public class ScrapService {
         scrapRepository.delete(scrap);
     }
 
-//    public ScrapResource findById(Long id) {
-//        Scrap entity = scrapRepository.findById(id)
-//                .orElseThrow( () -> new IllegalArgumentException("해당 게시글이 없습니다. id="+id) );
-//
-//        return new ScrapResource(entity);
-//    }
+    public ScrapResource findById(Long id) {
+        Scrap entity = scrapRepository.findById(id)
+                .orElseThrow( () -> new IllegalArgumentException("해당 게시글이 없습니다. id="+id) );
+
+        return new ScrapResource(entity);
+    }
 
     @Transactional(readOnly = true)
     public List<ScrapListReponseDto> findAllDesc() {
