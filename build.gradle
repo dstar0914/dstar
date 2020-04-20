@@ -16,7 +16,7 @@ repositories {
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 //	compile('org.springframework.boot:spring-boot-starter-oauth2-client')
-	implementation('org.springframework.boot:spring-boot-starter-mustache')
+	asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor'
 	compile('org.springframework.restdocs:spring-restdocs-mockmvc')
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-hateoas'
