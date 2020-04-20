@@ -104,7 +104,7 @@ operation::index[snippets='response-body,http-response,links']
 
 `GET` 요청을 사용하여 서비스의 모든 이벤트를 조회할 수 있다.
 
-operation::index[snippets='response-fields,curl-request,http-response,links']
+operation::query-scrap[snippets='response-fields,curl-request,http-response,links']
 
 [[resources-scrap-create]]
 === 이벤트 생성
@@ -118,11 +118,11 @@ operation::create-scrap[snippets='request-fields,curl-request,http-request,reque
 
 `Get` 요청을 사용해서 기존 이벤트 하나를 조회할 수 있다.
 
-operation::get-event[snippets='request-fields,curl-request,http-response,links']
+operation::get-scrap[snippets='request-fields,curl-request,http-response,links']
 
 [[resources-scrap-update]]
 === 이벤트 수정
 
 `PUT` 요청을 사용해서 기존 이벤트를 수정할 수 있다.
 
-operation::update-event[snippets='request-fields,curl-request,http-response,links']
+operation::update-scrap[snippets='request-fields,curl-request,http-response,links']

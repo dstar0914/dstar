@@ -10,6 +10,7 @@ public class ScrapResource extends EntityModel<ScrapResponseDto> {
 
     public ScrapResource(ScrapResponseDto responseDto, Link... links) {
         super(responseDto, links);
+
         add(linkTo(ScrapApiController.class).slash(responseDto.getId()).withSelfRel());
     }
 

@@ -242,8 +242,43 @@ public class ScrapApiControllerTest {
                 .andExpect(jsonPath("_embedded.lists[0]._links.self.href").exists())
                 .andExpect(jsonPath("_links.self.href").exists())
                 .andExpect(jsonPath("_links.profile").exists())
-                .andDo(document("query-scrap"))
-        ;
+                .andDo(document(
+                        "query-scrap",
+                        links(
+                                linkWithRel("self").description("link to self"),
+//                                linkWithRel("query-scrap").description("link to query-scrap"),
+//                                linkWithRel("update-scrap").description("link to update-scrap"),
+                                linkWithRel("next").description("link to update-scrap"),
+                                linkWithRel("last").description("link to update-scrap"),
+                                linkWithRel("prev").description("link to update-scrap"),
+                                linkWithRel("first").description("link to update-scrap"),
+                                linkWithRel("profile").description("link to profile")
+                        ),
+                        responseHeaders(
+                                //headerWithName(HttpHeaders.LOCATION).description("response header"), 왜 에러나는지 모르겠음
+                                headerWithName(HttpHeaders.CONTENT_TYPE).description("response content type")
+                        ),
+                        responseFields(
+                                fieldWithPath("_embedded.lists[].id").description("scrap id"),
+                                fieldWithPath("_embedded.lists[].url").description("scrap url"),
+                                fieldWithPath("_embedded.lists[].data").description("scrap data"),
+                                fieldWithPath("_embedded.lists[].createdAt").description("scrap createdAt"),
+                                fieldWithPath("_embedded.lists[]_links.self.href").description("scrap createdAt"),
+                                //fieldWithPath("userId").description("scrap userId"),
+                                fieldWithPath("_links.self.href").description("links to self"),
+//                                fieldWithPath("_links.query-scrap.href").description("links to query-scrap"),
+//                                fieldWithPath("_links.update-scrap.href").description("links to update-scrap"),
+                                fieldWithPath("_links.profile.href").description("links to profile"),
+                                fieldWithPath("_links.next.href").description("links to next"),
+                                fieldWithPath("_links.last.href").description("links to last"),
+                                fieldWithPath("_links.prev.href").description("links to prev"),
+                                fieldWithPath("_links.first.href").description("links to first"),
+                                fieldWithPath("page.size").description("links to prev"),
+                                fieldWithPath("page.totalElements").description("links to prev"),
+                                fieldWithPath("page.totalPages").description("links to prev"),
+                                fieldWithPath("page.number").description("links to prev")
+                        )
+                ));
 
         //then
     }
