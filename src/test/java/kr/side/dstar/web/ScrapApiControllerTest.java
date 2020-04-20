@@ -117,7 +117,7 @@ public class ScrapApiControllerTest {
                                 fieldWithPath("url").description("scrap url"),
                                 fieldWithPath("data").description("scrap data"),
                                 fieldWithPath("createdAt").description("scrap createdAt"),
-                                fieldWithPath("userId").description("scrap userId"),
+                                //fieldWithPath("userId").description("scrap userId"),
                                 fieldWithPath("_links.self.href").description("links to self"),
                                 fieldWithPath("_links.query-scrap.href").description("links to query-scrap"),
                                 fieldWithPath("_links.update-scrap.href").description("links to update-scrap"),
@@ -239,7 +239,7 @@ public class ScrapApiControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("page").exists())
-                .andExpect(jsonPath("_embedded.scrapList[0]._links.self.href").exists())
+                .andExpect(jsonPath("_embedded.lists[0]._links.self.href").exists())
                 .andExpect(jsonPath("_links.self.href").exists())
                 .andExpect(jsonPath("_links.profile").exists())
                 .andDo(document("query-scrap"))
