@@ -48,8 +48,18 @@ public class ScrapApiController {
     }
 
     @PutMapping("{id}")
-    public ScrapResource update(@PathVariable Long id, @RequestBody ScrapUpdateRequestDto requestDto) {
-        return scrapService.update(id, requestDto);
+    public ResponseEntity update(@PathVariable Long id, @RequestBody ScrapUpdateRequestDto requestDto) {
+        ScrapResponseDto updateScrap = scrapService.update(id, requestDto);
+
+        ScrapResource scrapResource = new ScrapResource(updateScrap);
+
+        WebMvcLinkBuilder selfLinkBuilder = linkTo(ScrapApiController.class).slash(updateScrap.getId());
+
+        scrapResource.add(selfLinkBuilder.withRel("query-scrap"));
+        scrapResource.add(selfLinkBuilder.withRel("create-scrap"));
+        scrapResource.add(new Link("/docs/index.html#resources-scrap-update").withRel("profile"));
+
+        return ResponseEntity.ok(scrapResource);
     }
 
     @DeleteMapping("{id}")

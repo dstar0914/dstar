@@ -24,8 +24,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
@@ -35,11 +33,10 @@ import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.li
 import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.links;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 @Slf4j
 @AutoConfigureMockMvc
@@ -126,6 +123,73 @@ public class ScrapApiControllerTest {
                 ));
     }
 
+    @Test
+    public void update() throws Exception {
+        //given
+        String url  = "http://naver.com";
+        String data = "<html></html>";
+
+        Scrap savedScrap = scrapRepository.save(Scrap.builder()
+                .url(url)
+                .data(data)
+                .build());
+
+        Long updateId       = savedScrap.getId();
+
+        String expectedUrl  = "url";
+        String expectedData = "data";
+
+        ScrapUpdateRequestDto requestDto = ScrapUpdateRequestDto.builder()
+                .url(expectedUrl)
+                .data(expectedData)
+                .build();
+
+        //when, then
+        mockMvc.perform(put("/api/scrap/"+updateId)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaTypes.HAL_JSON)
+                .content(objectMapper.writeValueAsString(requestDto)))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("id").exists())
+                .andExpect(jsonPath("_links.self").exists())
+                .andExpect(jsonPath("_links.query-scrap").exists())
+                .andExpect(jsonPath("_links.create-scrap").exists())
+                .andExpect(jsonPath("_links.profile").exists())
+                .andDo(document(
+                        "update-scrap",
+                        links(
+                                linkWithRel("self").description("link to self"),
+                                linkWithRel("query-scrap").description("link to query-scrap"),
+                                linkWithRel("create-scrap").description("link to create-scrap"),
+                                linkWithRel("profile").description("link to profile")
+                        ),
+                        requestHeaders(
+                                headerWithName(HttpHeaders.ACCEPT).description("request header"),
+                                headerWithName(HttpHeaders.CONTENT_TYPE).description("request content type")
+                        ),
+                        requestFields(
+                                fieldWithPath("url").description("scrap url"),
+                                fieldWithPath("data").description("scrap data")
+                        ),
+                        responseHeaders(
+                                //headerWithName(HttpHeaders.LOCATION).description("response header"), 왜 에러나는지 모르겠음
+                                headerWithName(HttpHeaders.CONTENT_TYPE).description("response content type")
+                        ),
+                        responseFields(
+                                fieldWithPath("id").description("scrap id"),
+                                fieldWithPath("url").description("scrap url"),
+                                fieldWithPath("data").description("scrap data"),
+                                fieldWithPath("createdAt").description("scrap createdAt"),
+                                //fieldWithPath("userId").description("scrap userId"),
+                                fieldWithPath("_links.self.href").description("links to self"),
+                                fieldWithPath("_links.query-scrap.href").description("links to query-scrap"),
+                                fieldWithPath("_links.create-scrap.href").description("links to update-scrap"),
+                                fieldWithPath("_links.profile.href").description("links to profile")
+                        )
+                ));
+    }
+
     /*
     @Test
     public void save() throws Exception {
@@ -161,6 +225,7 @@ public class ScrapApiControllerTest {
     }
     */
 
+    /*
     @Test
     public void update() throws Exception {
         //given
@@ -197,6 +262,7 @@ public class ScrapApiControllerTest {
         assertThat(scrap.getUrl()).isEqualTo(expectedUrl);
         assertThat(scrap.getData()).isEqualTo(expectedData);
     }
+    */
 
     @Test
     public void delete() throws Exception {

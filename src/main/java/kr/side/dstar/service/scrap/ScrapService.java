@@ -25,12 +25,11 @@ public class ScrapService {
     }
 
     @Transactional
-    public ScrapResource update(Long id, ScrapUpdateRequestDto requestDto) {
+    public ScrapResponseDto update(Long id, ScrapUpdateRequestDto requestDto) {
         Scrap scrap = scrapRepository.findById(id)
                 .orElseThrow( () -> new IllegalArgumentException("해당 게시글이 없습니다. id="+id) );
 
-        ScrapResource updateScrap = scrap.update(requestDto.getUrl(), requestDto.getData());
-        return updateScrap;
+        return scrap.update(requestDto.getUrl(), requestDto.getData());
         /* scrap 자체를 리턴해보기 */
     }
 

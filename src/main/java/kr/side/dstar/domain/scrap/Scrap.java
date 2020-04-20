@@ -30,12 +30,10 @@ public class Scrap extends BaseTimeEntity {
         this.data   = data;
     }
 
-    public ScrapResource update(String url, String data) {
+    public ScrapResponseDto update(String url, String data) {
         this.url    = url;
         this.data   = data;
 
-        ScrapResource responseDto = new ScrapResource(this);
-
-        return responseDto;
+        return new ScrapResponseDto(this);
     }
 }
