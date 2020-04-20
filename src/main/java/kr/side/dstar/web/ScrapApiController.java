@@ -3,6 +3,7 @@ package kr.side.dstar.web;
 import kr.side.dstar.domain.scrap.Scrap;
 import kr.side.dstar.domain.scrap.ScrapRepository;
 import kr.side.dstar.domain.scrap.ScrapResource;
+import kr.side.dstar.domain.scrap.ScrapResponseDto;
 import kr.side.dstar.service.scrap.ScrapService;
 import kr.side.dstar.web.dto.ScrapSaveRequestDto;
 import kr.side.dstar.web.dto.ScrapUpdateRequestDto;
@@ -32,7 +33,7 @@ public class ScrapApiController {
 
     @PostMapping()
     public ResponseEntity save(@RequestBody ScrapSaveRequestDto requestDto) {
-        Scrap createScrap = scrapService.save(requestDto);
+        ScrapResponseDto createScrap = scrapService.save(requestDto);
 
         ScrapResource scrapResource = new ScrapResource(createScrap);
 
@@ -57,14 +58,14 @@ public class ScrapApiController {
         return id;
     }
 
-    @GetMapping("{id}")
-    public ScrapResource findById(@PathVariable Long id) {
-        return scrapService.findById(id);
-    }
+    //@GetMapping("{id}")
+//    public ScrapResource findById(@PathVariable Long id) {
+//        return scrapService.findById(id);
+//    }
 
     @GetMapping
     public ResponseEntity getList(Pageable pageable, PagedResourcesAssembler<Scrap> assembler) {
-        PagedModel<EntityModel<Scrap>> pageResource = assembler.toModel(scrapRepository.findAll(pageable), ScrapResource::new);
+        PagedModel<EntityModel<ScrapResponseDto>> pageResource = assembler.toModel(scrapRepository.findAll(pageable), ScrapResource::new);
 
         pageResource.add(new Link("/docs/index.html#resources-scrap-list").withRel("profile"));
 
