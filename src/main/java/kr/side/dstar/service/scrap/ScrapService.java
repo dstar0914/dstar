@@ -19,10 +19,10 @@ public class ScrapService {
     private final ScrapRepository scrapRepository;
 
     @Transactional
-    public ScrapResource save(ScrapSaveRequestDto requestDto) {
-        Scrap saveScrap = scrapRepository.save(requestDto.toEntity());
+    public Scrap save(ScrapSaveRequestDto requestDto) {
+        Scrap result = scrapRepository.save(requestDto.toEntity());
 
-        return new ScrapResource(saveScrap);
+        return result;
     }
 
     @Transactional

@@ -27,6 +27,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.IntStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.restdocs.headers.HeaderDocumentation.*;
@@ -38,6 +39,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 @Slf4j
 @AutoConfigureMockMvc
@@ -84,7 +86,7 @@ public class ScrapApiControllerTest {
                 .accept(MediaTypes.HAL_JSON)
                 .content(objectMapper.writeValueAsString(requestDto)))
                 .andDo(print())
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(jsonPath("id").exists())
                 .andExpect(jsonPath("_links.self").exists())
                 .andExpect(jsonPath("_links.query-scrap").exists())
@@ -114,6 +116,8 @@ public class ScrapApiControllerTest {
                                 fieldWithPath("id").description("scrap id"),
                                 fieldWithPath("url").description("scrap url"),
                                 fieldWithPath("data").description("scrap data"),
+                                fieldWithPath("createdAt").description("scrap createdAt"),
+                                fieldWithPath("userId").description("scrap userId"),
                                 fieldWithPath("_links.self.href").description("links to self"),
                                 fieldWithPath("_links.query-scrap.href").description("links to query-scrap"),
                                 fieldWithPath("_links.update-scrap.href").description("links to update-scrap"),
@@ -218,5 +222,38 @@ public class ScrapApiControllerTest {
 
         Optional<Scrap> deletedScrap = scrapRepository.findById(deleteId);
         Assert.assertFalse(deletedScrap.isPresent());
+    }
+
+    @Test
+    public void getList() throws Exception {
+        //given
+        IntStream.range(0, 30).forEach(i -> {
+            this.createScrap(i);
+        });
+
+        //when
+        this.mockMvc.perform(get("/api/scrap")
+                .param("page", "1")
+                .param("size", "10")
+                .param("sort", "id,DESC"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("page").exists())
+                .andExpect(jsonPath("_embedded.scrapList[0]._links.self").exists())
+                .andExpect(jsonPath("_links.self").exists())
+                .andExpect(jsonPath("_links.profile").exists())
+                .andDo(document("query-scrap"))
+        ;
+
+        //then
+    }
+
+    private void createScrap(int i) {
+        Scrap scrap = Scrap.builder()
+                .url("url"+i)
+                .data("data"+i)
+                .build();
+
+        scrapRepository.save(scrap);
     }
 }
