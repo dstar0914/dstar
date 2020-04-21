@@ -14,6 +14,7 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @Entity
 public class Scrap extends BaseTimeEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
