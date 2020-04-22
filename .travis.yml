@@ -30,7 +30,7 @@ deploy:
     local_dir: deploy # before_deploy에서 생성한 디렉토리
     wait-until-deployed: true
     on:
-      repo: /dstar0914/dstar
+      repo: dstar0914/dstar
       branch: master
 
 
