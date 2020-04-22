@@ -19,3 +19,16 @@ notifications:
   email:
     recipients:
       - demon091400@gmail.com
+
+deploy:
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY # Travis repo settings 값
+    secret_access_key: $AWS_SECRET_KEY # Travis repo settings 값
+    bucket: dstar-deploy # S3 버킷명
+    region: ap-northeast-2
+    skip_cleanup: true
+    acl: public_read
+    wait-until-deployed: true
+    on:
+      repo: /dstar0914/dstar
+      branch: master
