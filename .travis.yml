@@ -22,7 +22,6 @@ before_deploy:
 deploy:
   - provider: s3
     skip_cleanup: true
-    cleanup: true
     access_key_id: $AWS_ACCESS_KEY # Travis repo settings 값
     secret_access_key: $AWS_SECRET_KEY # Travis repo settings 값
     bucket: dstar-deploy # S3 버킷명
@@ -33,6 +32,21 @@ deploy:
     on:
       repo: dstar0914/dstar
       branch: master
+
+  - provider: codedeploy
+    access_key_id: $AWS_ACCESS_KEY # Travis repo settings 값
+    secret_access_key: $AWS_SECRET_KEY # Travis repo settings 값
+    bucket: dstar-deploy # S3 버킷명
+    key: dstar.zip
+    bundle_type: zip
+    application: dstar-service # 웹 콘솔에서 등록한 CodeDeploy 애플리케이션
+    deployment_group: dstar-service-group
+    region: ap-northeast-2
+    wait-until-deployed: true
+      on:
+        repo: dstar0914/dstar
+        branch: master
+
 
 
 # CI 실행 완료시 메일로 알람

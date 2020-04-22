@@ -1,0 +1,5 @@
+varsion: 0.0
+os: linux
+files:
+  - source: /
+    destination: /home/test-service/travis/build/
