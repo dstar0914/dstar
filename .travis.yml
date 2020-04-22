@@ -25,10 +25,8 @@ deploy:
     secret_access_key: $AWS_SECRET_KEY # Travis repo settings 값
     bucket: dstar-deploy # S3 버킷명
     region: ap-northeast-2
-    skip_cleanup: true
     acl: public_read
     local_dir: deploy # before_deploy에서 생성한 디렉토리
-    wait-until-deployed: true
     on:
       repo: dstar0914/dstar
       branch: master
