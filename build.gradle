@@ -27,7 +27,7 @@ dependencies {
 	//compile('mysql:mysql-connector-java')
 
 	//compile('org.mariadb.jdbc:mariadb-java-client')
-	compile('com.h2database:h2')
+	testCompile('com.h2database:h2')
 }
 
 asciidoctor {
