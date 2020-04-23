@@ -6,7 +6,6 @@ spring:
 ---
 spring:
   profiles: local
-  datasource:
   jpa:
     show-sql: true
     hibernate:
