@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 public class DstarApplication {
 	public static final String APPLICATION_LOCATIONS = "spring.config.location="
 			+ "classpath:application.yml,"
-			+ "file:/home/test-service/config/real-application.yml"
+			+ "file:/home/test-service/config/real-application.yml,"
 			+ "file:/home/test-service/config/application-real-db.properties";
 
 	public static void main(String[] args) {
