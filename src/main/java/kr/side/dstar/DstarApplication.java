@@ -2,6 +2,7 @@ package kr.side.dstar;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @EnableJpaAuditing
@@ -12,6 +13,8 @@ public class DstarApplication {
 			+ "/test-service/real-application.yml";
 
 	public static void main(String[] args) {
-		SpringApplication.run(DstarApplication.class, args);
+		new SpringApplicationBuilder(DstarApplication.class)
+				.properties(APPLICATION_LOCATIONS)
+				.run(args);
 	}
 }
