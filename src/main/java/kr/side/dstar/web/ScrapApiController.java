@@ -34,7 +34,7 @@ public class ScrapApiController {
     @PostMapping()
     public ResponseEntity save(@RequestBody ScrapSaveRequestDto requestDto) {
         ScrapResponseDto createScrap = scrapService.save(requestDto);
-        ScrapResource scrapResource = new ScrapResource(scrapService.save(requestDto));
+        ScrapResource scrapResource = new ScrapResource(createScrap);
 
         WebMvcLinkBuilder selfLinkBuilder = linkTo(ScrapApiController.class).slash(createScrap.getId());
         URI createdUri = selfLinkBuilder.toUri();
