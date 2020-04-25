@@ -15,7 +15,8 @@ repositories {
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
-//	compile('org.springframework.boot:spring-boot-starter-oauth2-client')
+	compile('org.springframework.boot:spring-boot-starter-security')
+	compile('org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.1.0.RELEASE')
 	asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor'
 	compile('org.springframework.boot:spring-boot-starter-actuator')
 	compile('org.springframework.restdocs:spring-restdocs-mockmvc')
@@ -27,7 +28,7 @@ dependencies {
 	//compile('mysql:mysql-connector-java')
 
 	compile('org.mariadb.jdbc:mariadb-java-client')
-	compile('com.h2database:h2')
+	testCompile('com.h2database:h2')
 }
 
 asciidoctor {
