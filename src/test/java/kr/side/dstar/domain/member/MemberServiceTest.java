@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.stream.Collectors;
@@ -25,10 +26,10 @@ public class MemberServiceTest {
     public ExpectedException expectedException = ExpectedException.none();
 
     @Autowired
-    private MemberRepository memberRepository;
+    private MemberService memberService;
 
     @Autowired
-    private MemberService memberService;
+    private PasswordEncoder passwordEncoder;
 
     @Test
     public void findByUserName() throws Exception {
@@ -42,14 +43,14 @@ public class MemberServiceTest {
                 .status(Stream.of(MemberStatus.AUTHORIZED).collect(Collectors.toSet()))
                 .build();
 
-        Member result = this.memberRepository.save(member);
+        Member result = memberService.saveMember(member);
 
         //when
         UserDetailsService userDetailsService = memberService;
         UserDetails userDetails = userDetailsService.loadUserByUsername(name);
 
         //then
-        assertThat(userDetails.getPassword()).isEqualTo(password);
+        assertThat(passwordEncoder.matches(password, userDetails.getPassword())).isTrue();
     }
     
     @Test

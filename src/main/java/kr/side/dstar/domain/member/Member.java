@@ -43,4 +43,8 @@ public class Member extends BaseTimeEntity {
 
         return this;
     }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }
