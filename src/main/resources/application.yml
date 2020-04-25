@@ -9,10 +9,11 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: create-drop
-  h2:
-    console:
-      enabled: true
+      ddl-auto: create
+  datasource:
+    url: jdbc:mariadb://localhost:3306/dstar?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
+    username: root
+    password: root
 
 # 운영 환경
 ---
