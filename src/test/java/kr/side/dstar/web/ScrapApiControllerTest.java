@@ -2,11 +2,15 @@ package kr.side.dstar.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import kr.side.dstar.common.RestDocsConfiguration;
+import kr.side.dstar.domain.member.Member;
+import kr.side.dstar.domain.member.MemberService;
+import kr.side.dstar.domain.member.MemberStatus;
 import kr.side.dstar.domain.scrap.Scrap;
 import kr.side.dstar.domain.scrap.ScrapRepository;
 import kr.side.dstar.web.dto.ScrapSaveRequestDto;
 import kr.side.dstar.web.dto.ScrapUpdateRequestDto;
 import lombok.extern.slf4j.Slf4j;
+import lombok.var;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
@@ -20,11 +24,16 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.context.annotation.Import;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.*;
+import org.springframework.security.oauth2.common.util.Jackson2JsonParser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.restdocs.headers.HeaderDocumentation.*;
@@ -32,6 +41,7 @@ import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.li
 import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.links;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -60,11 +70,15 @@ public class ScrapApiControllerTest {
     @Autowired
     private ScrapRepository scrapRepository;
 
+    @Autowired
+    MemberService memberService;
+
     @After
     public void clearAll() throws Exception {
         scrapRepository.deleteAll();
     }
 
+    @Transactional
     @Test
     public void save() throws Exception {
         //given
@@ -78,6 +92,7 @@ public class ScrapApiControllerTest {
 
         //when, then
         mockMvc.perform(post("/api/scrap")
+                .header(HttpHeaders.AUTHORIZATION, "Bearer "+ getBearerToken())
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaTypes.HAL_JSON)
                 .content(objectMapper.writeValueAsString(requestDto)))
@@ -122,6 +137,35 @@ public class ScrapApiControllerTest {
                 ));
     }
 
+    private String getBearerToken() throws Exception {
+        //given
+        String username = "abc@email.com";
+        String password = "pass";
+
+        Member member = Member.builder()
+                .email(username)
+                .password(password)
+                .status(Stream.of(MemberStatus.AUTHORIZED).collect(Collectors.toSet()))
+                .build();
+
+        memberService.saveMember(member);
+
+        String clientId     = "myApp";
+        String clientSecret = "pass";
+
+        ResultActions perform = mockMvc.perform(post("/oauth/token")
+                .with(httpBasic(clientId, clientSecret))
+                .param("username", username)
+                .param("password", password)
+                .param("grant_type", "password"));
+
+        var responseBody =  perform.andReturn().getResponse().getContentAsString();
+        Jackson2JsonParser parser = new Jackson2JsonParser();
+
+        return parser.parseMap(responseBody).get("access_token").toString();
+    }
+
+    @Transactional
     @Test
     public void update() throws Exception {
         //given
@@ -145,6 +189,7 @@ public class ScrapApiControllerTest {
 
         //when, then
         mockMvc.perform(put("/api/scrap/{id}",updateId)
+                .header(HttpHeaders.AUTHORIZATION, "Bearer "+ getBearerToken())
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaTypes.HAL_JSON)
                 .content(objectMapper.writeValueAsString(requestDto)))
