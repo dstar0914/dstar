@@ -70,7 +70,6 @@ public class ScrapApiController {
     @GetMapping("{id}")
     public ResponseEntity findById(@PathVariable Long id) {
         ScrapResponseDto responseDto = scrapService.findById(id);
-
         ScrapResource scrapResource = new ScrapResource(responseDto);
 
         WebMvcLinkBuilder selfLinkBuilder = linkTo(ScrapApiController.class).slash(responseDto.getId());

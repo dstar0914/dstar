@@ -12,7 +12,6 @@ import kr.side.dstar.web.dto.ScrapUpdateRequestDto;
 import lombok.extern.slf4j.Slf4j;
 import lombok.var;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,19 +22,19 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.context.annotation.Import;
 import org.springframework.hateoas.MediaTypes;
-import org.springframework.http.*;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.security.oauth2.common.util.Jackson2JsonParser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.restdocs.headers.HeaderDocumentation.*;
 import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.linkWithRel;
 import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.links;
@@ -354,7 +353,6 @@ public class ScrapApiControllerTest {
         assertThat(scrap.getUrl()).isEqualTo(expectedUrl);
         assertThat(scrap.getData()).isEqualTo(expectedData);
     }
-    */
 
     @Test
     public void delete() throws Exception {
@@ -380,6 +378,25 @@ public class ScrapApiControllerTest {
 
         Optional<Scrap> deletedScrap = scrapRepository.findById(deleteId);
         Assert.assertFalse(deletedScrap.isPresent());
+    }
+    */
+
+    @Test
+    public void delete() throws Exception {
+        //given
+        Scrap savedScrap = scrapRepository.save(Scrap.builder()
+                .url("deleteurl")
+                .data("deletedata")
+                .build());
+
+        Long deleteId = savedScrap.getId();
+
+        //then
+        mockMvc.perform(MockMvcRequestBuilders
+                .delete("/api/scrap/{id}", deleteId)
+                .header(HttpHeaders.AUTHORIZATION, "Bearer "+ getBearerToken()))
+                .andDo(print())
+                .andExpect(status().isOk());
     }
 
     @Test
