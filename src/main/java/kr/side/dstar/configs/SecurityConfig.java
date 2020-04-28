@@ -62,7 +62,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .and()
                 .authorizeRequests()
                     .mvcMatchers(HttpMethod.GET, "/api/**").anonymous()
-                    .mvcMatchers(HttpMethod.POST, "/api/**").anonymous()
                     .anyRequest().authenticated();
     }
 }
