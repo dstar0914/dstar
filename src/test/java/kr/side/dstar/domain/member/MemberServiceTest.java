@@ -1,6 +1,7 @@
 package kr.side.dstar.domain.member;
 
 import org.hamcrest.Matchers;
+import org.junit.After;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -29,7 +30,16 @@ public class MemberServiceTest {
     private MemberService memberService;
 
     @Autowired
+    private  MemberRepository memberRepository;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @After
+    @Test
+    public void cleanAll() throws Exception {
+        memberRepository.deleteAll();
+    }
 
     @Test
     public void findByUserName() throws Exception {
@@ -52,7 +62,7 @@ public class MemberServiceTest {
         //then
         assertThat(passwordEncoder.matches(password, userDetails.getPassword())).isTrue();
     }
-    
+
     @Test
     public void findByUserNameFail() {
         //expected
