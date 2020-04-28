@@ -26,6 +26,7 @@ public class Member extends BaseTimeEntity {
 
     private String phone;
 
+    @Column(unique = true)
     private String email;
 
     @Builder
