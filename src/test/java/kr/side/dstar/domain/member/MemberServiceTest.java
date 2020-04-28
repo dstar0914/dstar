@@ -1,7 +1,6 @@
 package kr.side.dstar.domain.member;
 
 import org.hamcrest.Matchers;
-import org.junit.After;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -13,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -35,12 +35,13 @@ public class MemberServiceTest {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @After
-    @Test
-    public void cleanAll() throws Exception {
-        memberRepository.deleteAll();
-    }
+//    @After
+//    @Test
+//    public void cleanAll() throws Exception {
+//        memberRepository.deleteAll();
+//    }
 
+    @Transactional
     @Test
     public void findByUserName() throws Exception {
         //given
