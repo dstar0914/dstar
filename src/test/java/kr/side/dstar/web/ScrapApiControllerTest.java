@@ -91,7 +91,7 @@ public class ScrapApiControllerTest {
 
         //when, then
         mockMvc.perform(post("/api/scrap")
-                .header(HttpHeaders.AUTHORIZATION, "Bearer "+ getBearerToken())
+                .header("X-AUTH-TOKEN", getJwtToken())
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaTypes.HAL_JSON)
                 .content(objectMapper.writeValueAsString(requestDto)))
@@ -134,6 +134,35 @@ public class ScrapApiControllerTest {
                                 fieldWithPath("_links.profile.href").description("links to profile")
                         )
                 ));
+    }
+
+    public String getJwtToken() throws Exception {
+        String username = "abc@email.com";
+        String password = "pass";
+
+        Member member = Member.builder()
+                .email(username)
+                .password(password)
+                .status(Stream.of(MemberStatus.AUTHORIZED).collect(Collectors.toSet()))
+                .build();
+
+        memberService.saveMember(member);
+
+        String clientId     = "myApp";
+        String clientSecret = "pass";
+
+        ResultActions perform = mockMvc.perform(post("/login/signin")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaTypes.HAL_JSON)
+                .content(objectMapper.writeValueAsString(member)))
+                .andDo(print());
+
+        String responseBody =  perform.andReturn().getResponse().getContentAsString();
+
+        log.info("==============================");
+        log.info("{}", responseBody);
+
+        return responseBody;
     }
 
     private String getBearerToken() throws Exception {
@@ -188,7 +217,8 @@ public class ScrapApiControllerTest {
 
         //when, then
         mockMvc.perform(put("/api/scrap/{id}",updateId)
-                .header(HttpHeaders.AUTHORIZATION, "Bearer "+ getBearerToken())
+                .header("X-AUTH-TOKEN", getJwtToken())
+//                .header(HttpHeaders.AUTHORIZATION, "Bearer "+ getBearerToken())
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaTypes.HAL_JSON)
                 .content(objectMapper.writeValueAsString(requestDto)))
@@ -381,6 +411,7 @@ public class ScrapApiControllerTest {
     }
     */
 
+    @Transactional
     @Test
     public void delete() throws Exception {
         //given
@@ -394,7 +425,7 @@ public class ScrapApiControllerTest {
         //then
         mockMvc.perform(MockMvcRequestBuilders
                 .delete("/api/scrap/{id}", deleteId)
-                .header(HttpHeaders.AUTHORIZATION, "Bearer "+ getBearerToken()))
+                .header("X-AUTH-TOKEN", getJwtToken()))
                 .andDo(print())
                 .andExpect(status().isOk());
     }
