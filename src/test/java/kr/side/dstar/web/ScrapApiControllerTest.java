@@ -2,6 +2,7 @@ package kr.side.dstar.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import kr.side.dstar.common.RestDocsConfiguration;
+import kr.side.dstar.configs.JwtTokenProvider;
 import kr.side.dstar.domain.member.Member;
 import kr.side.dstar.domain.member.MemberService;
 import kr.side.dstar.domain.member.MemberStatus;
@@ -10,7 +11,6 @@ import kr.side.dstar.domain.scrap.ScrapRepository;
 import kr.side.dstar.web.dto.ScrapSaveRequestDto;
 import kr.side.dstar.web.dto.ScrapUpdateRequestDto;
 import lombok.extern.slf4j.Slf4j;
-import lombok.var;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,6 +24,11 @@ import org.springframework.context.annotation.Import;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.common.util.Jackson2JsonParser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -31,10 +36,13 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.restdocs.headers.HeaderDocumentation.*;
 import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.linkWithRel;
 import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.links;
@@ -71,6 +79,12 @@ public class ScrapApiControllerTest {
 
     @Autowired
     MemberService memberService;
+
+    @Autowired
+    AuthenticationManager authenticationManager;
+
+    @Autowired
+    JwtTokenProvider jwtTokenProvider;
 
     @After
     public void clearAll() throws Exception {
@@ -136,6 +150,39 @@ public class ScrapApiControllerTest {
                 ));
     }
 
+    @Transactional
+    @Test
+    public void authentication() throws Exception {
+        //given
+        String username = "ccc@email.com";
+        String password = "pass";
+
+        Member member = Member.builder()
+                .email(username)
+                .password(password)
+                .status(Stream.of(MemberStatus.AUTHORIZED).collect(Collectors.toSet()))
+                .build();
+
+        memberService.saveMember(member);
+
+        //when
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(username, password)
+        );
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        UserDetails user = memberService.loadUserByUsername(username);
+
+        log.info("{}", user.getAuthorities());
+
+        String jwt = jwtTokenProvider.createToken(member.getEmail(), user.getAuthorities());
+
+        //then
+        assertThat(jwt).isNotEmpty();
+        log.info(jwt);
+    }
+
     public String getJwtToken() throws Exception {
         String username = "abc@email.com";
         String password = "pass";
@@ -148,19 +195,19 @@ public class ScrapApiControllerTest {
 
         memberService.saveMember(member);
 
-        String clientId     = "myApp";
-        String clientSecret = "pass";
+        Map<String, String> userInfo = new HashMap<>();
+        userInfo.put("username", username);
+        userInfo.put("password", password);
 
         ResultActions perform = mockMvc.perform(post("/login/signin")
                 .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaTypes.HAL_JSON)
-                .content(objectMapper.writeValueAsString(member)))
+                .content(objectMapper.writeValueAsString(userInfo)))
                 .andDo(print());
 
         String responseBody =  perform.andReturn().getResponse().getContentAsString();
 
         log.info("==============================");
-        log.info("{}", responseBody);
+        log.info(responseBody);
 
         return responseBody;
     }
@@ -187,7 +234,7 @@ public class ScrapApiControllerTest {
                 .param("password", password)
                 .param("grant_type", "password"));
 
-        var responseBody =  perform.andReturn().getResponse().getContentAsString();
+        String responseBody =  perform.andReturn().getResponse().getContentAsString();
         Jackson2JsonParser parser = new Jackson2JsonParser();
 
         return parser.parseMap(responseBody).get("access_token").toString();
