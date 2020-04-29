@@ -15,8 +15,11 @@ cache:
 script: "./gradlew clean build"
 
 before_deploy:
-  - zip -r dstar *
-  - mkdir -p deploy
+  - mkdir deploy
+  - mv build/libs/*.jar deploy
+  - mv appspec.yml deploy
+  - mv execute-deploy.sh
+  - zip dstar.zip deploy/*
   - mv dstar.zip deploy/dstar.zip
 
 deploy:
