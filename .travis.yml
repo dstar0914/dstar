@@ -5,6 +5,9 @@ jdk:
 services:
   - mysql
 
+addons:
+  mariadb: '10.0'
+
 branches:
   only:
     - master
