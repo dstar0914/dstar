@@ -30,7 +30,7 @@ before_deploy:
   - mkdir deploy
   - mv build/libs/*.jar deploy
   - mv appspec.yml deploy
-  - mv execute-deploy.sh
+  - mv execute-deploy.sh deploy
   - zip dstar.zip deploy/*
   - mv dstar.zip deploy/dstar.zip
 
