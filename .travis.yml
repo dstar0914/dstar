@@ -27,7 +27,7 @@ before_install:
 script: "./gradlew clean build"
 
 before_deploy:
-  - mkdir folder
+  - mkdir -p folder
   - mv build/libs/*.jar folder
   - mv appspec.yml folder
   - mv execute-deploy.sh folder
