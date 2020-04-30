@@ -2,8 +2,6 @@ language: java
 jdk:
   - openjdk8
 
-dist: precise
-
 addons:
   mariadb: '10.0'
 
@@ -19,7 +17,7 @@ cache:
 
 before_install:
   - mysql -e "use mysql; update user set authentication_string=PASSWORD('root') where User='root'; FLUSH PRIVILEGES;"
-  - mysql -e "create database='dstar'"
+  - mysql -e "create database='dstar';"
 #  - mysql -e "use mysql; update user set plugin='mysql_native_password'; FLUSH PRIVILEGES;"
 
 script: "./gradlew clean build"
