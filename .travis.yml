@@ -19,7 +19,7 @@ cache:
     - '$HOME/.gradle'
 
 before_install:
-  - mysql -e "create database='dstar';"
+  - mysql -e "create database=dstar;"
 
 script: "./gradlew clean build"
 
