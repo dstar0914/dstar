@@ -25,7 +25,7 @@ script: "./gradlew clean build"
 
 before_deploy:
   - mkdir -p deploy
-  - zip -r dstar.zip build/libs/*.jar appspec.yml execute-deploy.sh
+  - zip -r dstar.zip build/libs/* appspec.yml execute-deploy.sh
   - mv dstar.zip deploy/dstar.zip
 
 deploy:
