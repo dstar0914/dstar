@@ -105,7 +105,7 @@ public class ScrapApiControllerTest {
 
         //when, then
         mockMvc.perform(post("/api/scrap")
-                .header("X-AUTH-TOKEN", getJwtToken())
+                .header(HttpHeaders.AUTHORIZATION, "Bearer "+getBearerToken())
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaTypes.HAL_JSON)
                 .content(objectMapper.writeValueAsString(requestDto)))

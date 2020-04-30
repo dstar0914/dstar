@@ -19,10 +19,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
+//    private String signingKey = "AcQSDCxasd";
 
 //    @Bean
 //    public TokenStore tokenStore() {
 //        return new InMemoryTokenStore();
+//    }
+
+
+//    @Bean
+//    public JwtAccessTokenConverter jwtAccessTokenConverter() {
+//        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+//        converter.setSigningKey(signingKey);
+//        return converter;
 //    }
 
     @Bean
