@@ -15,6 +15,9 @@ cache:
     - '$HOME/.m2/repository'
     - '$HOME/.gradle'
 
+before_script:
+  - echo "USE mysql;\nUPDATE user SET password=PASSWORD('root') WHERE user='root';\nFLUSH PRIVILEGES;\n" | mysql -u root
+
 script: "./gradlew clean build"
 
 before_deploy:
@@ -24,7 +27,6 @@ before_deploy:
   - mv execute-deploy.sh
   - zip dstar.zip deploy/*
   - mv dstar.zip deploy/dstar.zip
-  - echo "USE mysql;\nUPDATE user SET password=PASSWORD('root') WHERE user='root';\nFLUSH PRIVILEGES;\n" | mysql -u root
 
 deploy:
   - provider: s3
