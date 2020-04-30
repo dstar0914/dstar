@@ -12,7 +12,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -41,7 +40,6 @@ public class MemberServiceTest {
 //        memberRepository.deleteAll();
 //    }
 
-    @Transactional
     @Test
     public void findByUserName() throws Exception {
         //given
@@ -67,7 +65,7 @@ public class MemberServiceTest {
     @Test
     public void findByUserNameFail() {
         //expected
-        String username = "test@test.com";
+        String username = "1234556@test.com";
 
         expectedException.expect(UsernameNotFoundException.class);
         expectedException.expectMessage(Matchers.containsString(username));
