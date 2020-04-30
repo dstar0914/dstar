@@ -2,11 +2,11 @@ language: java
 jdk:
   - openjdk8
 
-services:
-  - mysql
+#services:
+#  - mysql
 
-addons:
-  mariadb: '10.0'
+#addons:
+#  mariadb: '10.0'
 
 branches:
   only:
