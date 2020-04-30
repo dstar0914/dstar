@@ -27,12 +27,13 @@ before_install:
 script: "./gradlew clean build"
 
 before_deploy:
-  - mkdir dstar
-  - mv build/libs/*.jar dstar
-  - mv appspec.yml dstar
-  - mv execute-deploy.sh dstar
-  - zip dstar.zip dstar/*
-  - mv dstar.zip dstar/dstar.zip
+  - mkdir -p deploy
+  - mkdir -p folder
+  - mv build/libs/*.jar folder
+  - mv appspec.yml folder
+  - mv execute-deploy.sh folder
+  - zip dstar.zip folder/*
+  - mv dstar.zip deploy/dstar.zip
 
 deploy:
   - provider: s3
