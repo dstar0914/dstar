@@ -1,0 +1,11 @@
+[source,bash]
+----
+$ curl 'http://localhost:8080/api/scrap/2' -i -X PUT \
+    -H 'Content-Type: application/json;charset=UTF-8' \
+    -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1ODgzMzQwMTMsInVzZXJfbmFtZSI6ImFiY0BlbWFpbC5jb20iLCJhdXRob3JpdGllcyI6WyJST0xFX0FETUlOIl0sImp0aSI6IjZmN2NmOGE3LTMyODAtNDU1Yy05NjU1LTUyYjg4M2FhMTdiOCIsImNsaWVudF9pZCI6Im15QXBwIiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl19.ID-kBYok98jjBk26RwIirsTFTRy9CyXPLt2uKXfWDE8' \
+    -H 'Accept: application/hal+json' \
+    -d '{
+  "url" : "url",
+  "data" : "data"
+}'
+----

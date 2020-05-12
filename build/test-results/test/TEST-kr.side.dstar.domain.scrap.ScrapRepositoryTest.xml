@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="kr.side.dstar.domain.scrap.ScrapRepositoryTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2020-04-30T11:22:06" hostname="ida-eun-ui-MacBook-Air.local" time="0.061">
+  <properties/>
+  <testcase name="baseTimeEntitySave" classname="kr.side.dstar.domain.scrap.ScrapRepositoryTest" time="0.038"/>
+  <testcase name="save" classname="kr.side.dstar.domain.scrap.ScrapRepositoryTest" time="0.021"/>
+  <system-out><![CDATA[Hibernate: insert into scrap (created_at, data, url, user_id) values (?, ?, ?, ?)
+Hibernate: select scrap0_.id as id1_2_, scrap0_.created_at as created_2_2_, scrap0_.data as data3_2_, scrap0_.url as url4_2_, scrap0_.user_id as user_id5_2_ from scrap scrap0_
+>>>>> created=2020-04-30T20:22:06.958031
+Hibernate: select scrap0_.id as id1_2_, scrap0_.created_at as created_2_2_, scrap0_.data as data3_2_, scrap0_.url as url4_2_, scrap0_.user_id as user_id5_2_ from scrap scrap0_
+Hibernate: delete from scrap where id=?
+Hibernate: insert into scrap (created_at, data, url, user_id) values (?, ?, ?, ?)
+Hibernate: select scrap0_.id as id1_2_, scrap0_.created_at as created_2_2_, scrap0_.data as data3_2_, scrap0_.url as url4_2_, scrap0_.user_id as user_id5_2_ from scrap scrap0_
+Hibernate: select scrap0_.id as id1_2_, scrap0_.created_at as created_2_2_, scrap0_.data as data3_2_, scrap0_.url as url4_2_, scrap0_.user_id as user_id5_2_ from scrap scrap0_
+Hibernate: delete from scrap where id=?
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

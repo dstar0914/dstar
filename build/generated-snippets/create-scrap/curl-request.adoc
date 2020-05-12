@@ -1,0 +1,11 @@
+[source,bash]
+----
+$ curl 'http://localhost:8080/api/scrap' -i -X POST \
+    -H 'Content-Type: application/json;charset=UTF-8' \
+    -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1ODgzMzQwMTQsInVzZXJfbmFtZSI6ImFiY0BlbWFpbC5jb20iLCJhdXRob3JpdGllcyI6WyJST0xFX0FETUlOIl0sImp0aSI6IjRhYzE5YTg5LTRiNmMtNDRiNy04ZGQwLThhYjU1NzJmN2NiMSIsImNsaWVudF9pZCI6Im15QXBwIiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl19.JRphVuMPj10rxCQ1mmQ5N9nModqwyxEN7Yb2xH_ZUwI' \
+    -H 'Accept: application/hal+json' \
+    -d '{
+  "url" : "http://naver.com",
+  "data" : "<html></html>"
+}'
+----

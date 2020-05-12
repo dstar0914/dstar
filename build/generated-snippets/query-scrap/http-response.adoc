@@ -1,0 +1,144 @@
+[source,http,options="nowrap"]
+----
+HTTP/1.1 200 OK
+Content-Type: application/hal+json
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: DENY
+Content-Length: 3096
+
+{
+  "_embedded" : {
+    "lists" : [ {
+      "id" : 22,
+      "url" : "url19",
+      "data" : "data19",
+      "createdAt" : "2020-05-01T20:43:33.445136",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/scrap/22"
+        }
+      }
+    }, {
+      "id" : 21,
+      "url" : "url18",
+      "data" : "data18",
+      "createdAt" : "2020-05-01T20:43:33.440167",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/scrap/21"
+        }
+      }
+    }, {
+      "id" : 20,
+      "url" : "url17",
+      "data" : "data17",
+      "createdAt" : "2020-05-01T20:43:33.434889",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/scrap/20"
+        }
+      }
+    }, {
+      "id" : 19,
+      "url" : "url16",
+      "data" : "data16",
+      "createdAt" : "2020-05-01T20:43:33.429725",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/scrap/19"
+        }
+      }
+    }, {
+      "id" : 18,
+      "url" : "url15",
+      "data" : "data15",
+      "createdAt" : "2020-05-01T20:43:33.424902",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/scrap/18"
+        }
+      }
+    }, {
+      "id" : 17,
+      "url" : "url14",
+      "data" : "data14",
+      "createdAt" : "2020-05-01T20:43:33.420046",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/scrap/17"
+        }
+      }
+    }, {
+      "id" : 16,
+      "url" : "url13",
+      "data" : "data13",
+      "createdAt" : "2020-05-01T20:43:33.415925",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/scrap/16"
+        }
+      }
+    }, {
+      "id" : 15,
+      "url" : "url12",
+      "data" : "data12",
+      "createdAt" : "2020-05-01T20:43:33.411199",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/scrap/15"
+        }
+      }
+    }, {
+      "id" : 14,
+      "url" : "url11",
+      "data" : "data11",
+      "createdAt" : "2020-05-01T20:43:33.405411",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/scrap/14"
+        }
+      }
+    }, {
+      "id" : 13,
+      "url" : "url10",
+      "data" : "data10",
+      "createdAt" : "2020-05-01T20:43:33.40004",
+      "_links" : {
+        "self" : {
+          "href" : "http://localhost:8080/api/scrap/13"
+        }
+      }
+    } ]
+  },
+  "_links" : {
+    "first" : {
+      "href" : "http://localhost:8080/api/scrap?page=0&size=10&sort=id,desc"
+    },
+    "prev" : {
+      "href" : "http://localhost:8080/api/scrap?page=0&size=10&sort=id,desc"
+    },
+    "self" : {
+      "href" : "http://localhost:8080/api/scrap?page=1&size=10&sort=id,desc"
+    },
+    "next" : {
+      "href" : "http://localhost:8080/api/scrap?page=2&size=10&sort=id,desc"
+    },
+    "last" : {
+      "href" : "http://localhost:8080/api/scrap?page=2&size=10&sort=id,desc"
+    },
+    "profile" : {
+      "href" : "/docs/index.html#resources-scrap-list"
+    }
+  },
+  "page" : {
+    "size" : 10,
+    "totalElements" : 30,
+    "totalPages" : 3,
+    "number" : 1
+  }
+}
+----

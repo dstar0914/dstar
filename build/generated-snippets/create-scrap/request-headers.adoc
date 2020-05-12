@@ -1,0 +1,10 @@
+|===
+|Name|Description
+
+|`+Accept+`
+|request header
+
+|`+Content-Type+`
+|request content type
+
+|===

@@ -1,0 +1,22 @@
+|===
+|Relation|Description
+
+|`+self+`
+|link to self
+
+|`+next+`
+|link to update-scrap
+
+|`+last+`
+|link to update-scrap
+
+|`+prev+`
+|link to update-scrap
+
+|`+first+`
+|link to update-scrap
+
+|`+profile+`
+|link to profile
+
+|===

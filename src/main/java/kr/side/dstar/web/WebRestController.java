@@ -1,6 +1,6 @@
 package kr.side.dstar.web;
 
-import kr.side.dstar.service.scrap.ScrapService;
+import kr.side.dstar.scrap.ScrapService;
 import lombok.AllArgsConstructor;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,0 +1,16 @@
+|===
+|Relation|Description
+
+|`+self+`
+|link to self
+
+|`+query-scrap+`
+|link to query-scrap
+
+|`+update-scrap+`
+|link to create-scrap
+
+|`+profile+`
+|link to profile
+
+|===

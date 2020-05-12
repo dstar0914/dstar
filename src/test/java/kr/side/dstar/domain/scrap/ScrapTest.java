@@ -1,5 +1,6 @@
 package kr.side.dstar.domain.scrap;
 
+import kr.side.dstar.scrap.Scrap;
 import org.junit.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;

@@ -1,5 +1,7 @@
 package kr.side.dstar.domain.scrap;
 
+import kr.side.dstar.scrap.Scrap;
+import kr.side.dstar.scrap.ScrapRepository;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;

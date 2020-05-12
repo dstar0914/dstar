@@ -1,5 +1,6 @@
 package kr.side.dstar.domain.member;
 
+import kr.side.dstar.member.*;
 import org.hamcrest.Matchers;
 import org.junit.Rule;
 import org.junit.Test;
@@ -29,7 +30,7 @@ public class MemberServiceTest {
     private MemberService memberService;
 
     @Autowired
-    private  MemberRepository memberRepository;
+    private MemberRepository memberRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -49,7 +50,8 @@ public class MemberServiceTest {
         Member member = Member.builder()
                 .email(name)
                 .password(password)
-                .status(Stream.of(MemberStatus.AUTHORIZED).collect(Collectors.toSet()))
+                .status(MemberStatus.AUTHORIZED)
+                .roles(Stream.of(MemberRole.ADMIN).collect(Collectors.toSet()))
                 .build();
 
         Member result = memberService.saveMember(member);

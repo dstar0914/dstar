@@ -1,0 +1,23 @@
+[source,options="nowrap"]
+----
+{
+  "id" : 34,
+  "url" : "asd",
+  "data" : "<html></html>",
+  "createdAt" : "2020-05-01T20:43:34.247492",
+  "_links" : {
+    "self" : {
+      "href" : "http://localhost:8080/api/scrap/34"
+    },
+    "query-scrap" : {
+      "href" : "http://localhost:8080/api/scrap/34"
+    },
+    "update-scrap" : {
+      "href" : "http://localhost:8080/api/scrap/34"
+    },
+    "profile" : {
+      "href" : "/docs/index.html#resources-scrap-get"
+    }
+  }
+}
+----
