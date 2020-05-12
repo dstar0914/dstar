@@ -1,7 +1,0 @@
-[source,options="nowrap"]
-----
-{
-  "url" : "http://naver.com",
-  "data" : "<html></html>"
-}
-----
