@@ -1,4 +1,4 @@
-package kr.side.dstar.domain.member;
+package kr.side.dstar.member;
 
 import kr.side.dstar.member.*;
 import org.hamcrest.Matchers;

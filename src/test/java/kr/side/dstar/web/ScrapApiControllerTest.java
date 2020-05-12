@@ -1,25 +1,25 @@
 package kr.side.dstar.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import kr.side.dstar.auth.dto.LoginRequestDto;
 import kr.side.dstar.common.RestDocsConfiguration;
 import kr.side.dstar.member.Member;
+import kr.side.dstar.member.MemberRole;
 import kr.side.dstar.member.MemberService;
 import kr.side.dstar.member.MemberStatus;
-import kr.side.dstar.member.MemberRole;
 import kr.side.dstar.scrap.Scrap;
 import kr.side.dstar.scrap.ScrapRepository;
 import kr.side.dstar.scrap.dto.ScrapSaveRequestDto;
 import kr.side.dstar.scrap.dto.ScrapUpdateRequestDto;
+import kr.side.dstar.token.JwtTokenProvider;
+import kr.side.dstar.token.dto.TokenResponseDto;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.context.annotation.Import;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.HttpHeaders;
@@ -32,8 +32,6 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -43,7 +41,6 @@ import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.li
 import static org.springframework.restdocs.hypermedia.HypermediaDocumentation.links;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -57,8 +54,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 //@ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ScrapApiControllerTest {
-    @LocalServerPort
-    private int port;
+//    @LocalServerPort
+//    private int port;
 
     @Autowired
     ObjectMapper objectMapper;
@@ -66,9 +63,9 @@ public class ScrapApiControllerTest {
     @Autowired
     MockMvc mockMvc;
 
-    @Autowired
-    private TestRestTemplate restTemplate;
-
+//    @Autowired
+//    private TestRestTemplate restTemplate;
+//
     @Autowired
     private ScrapRepository scrapRepository;
 
@@ -78,13 +75,13 @@ public class ScrapApiControllerTest {
     @Autowired
     AuthenticationManager authenticationManager;
 
-//    @Autowired
-//    JwtTokenProvider jwtTokenProvider;
+    @Autowired
+    JwtTokenProvider jwtTokenProvider;
 
-    @After
-    public void clearAll() throws Exception {
-        scrapRepository.deleteAll();
-    }
+//    @After
+//    public void clearAll() throws Exception {
+//        scrapRepository.deleteAll();
+//    }
 
     @Transactional
     @Test
@@ -100,7 +97,7 @@ public class ScrapApiControllerTest {
 
         //when, then
         mockMvc.perform(post("/api/scrap")
-                .header(HttpHeaders.AUTHORIZATION, "Bearer "+getBearerToken())
+                .header("X-AUTH-TOKEN", getJwtToken())
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaTypes.HAL_JSON)
                 .content(objectMapper.writeValueAsString(requestDto)))
@@ -198,7 +195,7 @@ public class ScrapApiControllerTest {
         String clientSecret = "pass";
 
         ResultActions perform = mockMvc.perform(post("/oauth/token")
-                .with(httpBasic(clientId, clientSecret))
+                //.with(httpBasic(clientId, clientSecret))
                 .param("username", username)
                 .param("password", password)
                 .param("grant_type", "password"));
@@ -224,21 +221,29 @@ public class ScrapApiControllerTest {
 
         memberService.saveMember(member);
 
-        Map<String, String> userInfo = new HashMap<>();
-        userInfo.put("username", username);
-        userInfo.put("password", password);
+//        Map<String, String> userInfo = new HashMap<>();
+//        userInfo.put("username", username);
+//        userInfo.put("password", password);
 
-        ResultActions perform = mockMvc.perform(post("/login/signin")
+        LoginRequestDto requestDto = LoginRequestDto.builder()
+                .email(username)
+                .password(password)
+                .build();
+
+        ResultActions perform = mockMvc.perform(post("/auth/login")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(userInfo)))
+                .content(objectMapper.writeValueAsString(requestDto)))
                 .andDo(print());
 
         String responseBody =  perform.andReturn().getResponse().getContentAsString();
 
-        log.info("==============================");
-        log.info(responseBody);
+        ObjectMapper mapper = new ObjectMapper();
+        TokenResponseDto token = mapper.readValue(responseBody, TokenResponseDto.class);
 
-        return responseBody;
+        log.info("==============================");
+        log.info("token", token.getAccessToken());
+
+        return token.getAccessToken();
     }
 
     private String getBearerToken() throws Exception {
@@ -259,7 +264,7 @@ public class ScrapApiControllerTest {
         String clientSecret = "pass";
 
         ResultActions perform = mockMvc.perform(post("/oauth/token")
-                .with(httpBasic(clientId, clientSecret))
+                //.with(httpBasic(clientId, clientSecret))
                 .param("username", username)
                 .param("password", password)
                 .param("grant_type", "password"));

@@ -15,10 +15,11 @@ repositories {
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
-//	compile('org.springframework.boot:spring-boot-starter-security')
-//	compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.0'
-	compile group: 'org.springframework.security', name: 'spring-security-jwt', version: '1.0.2.RELEASE'
+
+	compile('org.springframework.boot:spring-boot-starter-security')
+	compile('io.jsonwebtoken:jjwt:0.9.1')
 	compile('org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.1.0.RELEASE')
+
 	asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor'
 	compile('org.springframework.boot:spring-boot-starter-actuator')
 	compile('org.springframework.restdocs:spring-restdocs-mockmvc')
@@ -26,7 +27,6 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-hateoas'
 	compile('org.projectlombok:lombok')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
-	testCompile('org.springframework.security:spring-security-test')
 	testCompile group: 'junit', name: 'junit', version: '4.12'
 //	compile('mysql:mysql-connector-java')
 	compile('org.mariadb.jdbc:mariadb-java-client')

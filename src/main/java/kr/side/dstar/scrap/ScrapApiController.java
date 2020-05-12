@@ -1,10 +1,5 @@
-package kr.side.dstar.controller;
+package kr.side.dstar.scrap;
 
-import kr.side.dstar.scrap.Scrap;
-import kr.side.dstar.scrap.ScrapRepository;
-import kr.side.dstar.scrap.ScrapResource;
-import kr.side.dstar.scrap.ScrapResponseDto;
-import kr.side.dstar.scrap.ScrapService;
 import kr.side.dstar.scrap.dto.ScrapSaveRequestDto;
 import kr.side.dstar.scrap.dto.ScrapUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +23,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 @RestController
 @RequestMapping(value = "/api/scrap", produces = MediaTypes.HAL_JSON_VALUE)
 public class ScrapApiController {
+
     private final ScrapService scrapService;
     private final ScrapRepository scrapRepository;
 
