@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 
 @Getter
 public class ScrapListReponseDto {
+
     private Long id;
     private String url;
     private String data;

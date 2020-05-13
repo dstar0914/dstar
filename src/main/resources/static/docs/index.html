@@ -681,79 +681,24 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>_embedded.lists[].id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>lists[].id</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">scrap id</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>_embedded.lists[].url</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>lists[].url</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">scrap url</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>_embedded.lists[].data</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>lists[].data</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">scrap data</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>_embedded.lists[].createdAt</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>lists[].createdAt</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">scrap createdAt</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>_embedded.lists[]_links.self.href</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">scrap createdAt</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>_links.self.href</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">links to self</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>_links.profile.href</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">links to profile</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>_links.next.href</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">links to next</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>_links.last.href</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">links to last</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>_links.prev.href</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">links to prev</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>_links.first.href</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">links to first</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>page.size</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">links to prev</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>page.totalElements</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">links to prev</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>page.totalPages</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">links to prev</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>page.number</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">links to prev</p></td>
 </tr>
 </tbody>
 </table>
@@ -762,7 +707,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h4 id="resources-scrap-list_curl_request"><a class="link" href="#resources-scrap-list_curl_request">Example request</a></h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8080/api/scrap?page=1&amp;size=10&amp;sort=id%2CDESC' -i -X GET</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8080/api/scrap' -i -X GET \
+    -H 'X-AUTH-TOKEN: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYmNAZW1haWwuY29tIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IlJPTEVfQURNSU4ifV0sImlhdCI6MTU4OTM5NjU3MywiZXhwIjoxNTg5Mzk2ODczfQ.2OFIP2tbfCOrfm1FHWSzFvvAspUahAOGr5d4bJnEeXk'</code></pre>
 </div>
 </div>
 </div>
@@ -778,182 +724,169 @@ Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
 X-Frame-Options: DENY
-Content-Length: 3095
+Content-Length: 3374
 
 {
-  "_embedded" : {
-    "lists" : [ {
-      "id" : 22,
-      "url" : "url19",
-      "data" : "data19",
-      "createdAt" : "2020-04-30T20:22:02.752409",
-      "_links" : {
-        "self" : {
-          "href" : "http://localhost:8080/api/scrap/22"
-        }
-      }
-    }, {
-      "id" : 21,
-      "url" : "url18",
-      "data" : "data18",
-      "createdAt" : "2020-04-30T20:22:02.744872",
-      "_links" : {
-        "self" : {
-          "href" : "http://localhost:8080/api/scrap/21"
-        }
-      }
-    }, {
-      "id" : 20,
-      "url" : "url17",
-      "data" : "data17",
-      "createdAt" : "2020-04-30T20:22:02.704417",
-      "_links" : {
-        "self" : {
-          "href" : "http://localhost:8080/api/scrap/20"
-        }
-      }
-    }, {
-      "id" : 19,
-      "url" : "url16",
-      "data" : "data16",
-      "createdAt" : "2020-04-30T20:22:02.69617",
-      "_links" : {
-        "self" : {
-          "href" : "http://localhost:8080/api/scrap/19"
-        }
-      }
-    }, {
-      "id" : 18,
-      "url" : "url15",
-      "data" : "data15",
-      "createdAt" : "2020-04-30T20:22:02.69207",
-      "_links" : {
-        "self" : {
-          "href" : "http://localhost:8080/api/scrap/18"
-        }
-      }
-    }, {
-      "id" : 17,
-      "url" : "url14",
-      "data" : "data14",
-      "createdAt" : "2020-04-30T20:22:02.686784",
-      "_links" : {
-        "self" : {
-          "href" : "http://localhost:8080/api/scrap/17"
-        }
-      }
-    }, {
-      "id" : 16,
-      "url" : "url13",
-      "data" : "data13",
-      "createdAt" : "2020-04-30T20:22:02.678542",
-      "_links" : {
-        "self" : {
-          "href" : "http://localhost:8080/api/scrap/16"
-        }
-      }
-    }, {
-      "id" : 15,
-      "url" : "url12",
-      "data" : "data12",
-      "createdAt" : "2020-04-30T20:22:02.673799",
-      "_links" : {
-        "self" : {
-          "href" : "http://localhost:8080/api/scrap/15"
-        }
-      }
-    }, {
-      "id" : 14,
-      "url" : "url11",
-      "data" : "data11",
-      "createdAt" : "2020-04-30T20:22:02.668539",
-      "_links" : {
-        "self" : {
-          "href" : "http://localhost:8080/api/scrap/14"
-        }
-      }
-    }, {
-      "id" : 13,
-      "url" : "url10",
-      "data" : "data10",
-      "createdAt" : "2020-04-30T20:22:02.660487",
-      "_links" : {
-        "self" : {
-          "href" : "http://localhost:8080/api/scrap/13"
-        }
-      }
-    } ]
-  },
-  "_links" : {
-    "first" : {
-      "href" : "http://localhost:8080/api/scrap?page=0&amp;size=10&amp;sort=id,desc"
-    },
-    "prev" : {
-      "href" : "http://localhost:8080/api/scrap?page=0&amp;size=10&amp;sort=id,desc"
-    },
-    "self" : {
-      "href" : "http://localhost:8080/api/scrap?page=1&amp;size=10&amp;sort=id,desc"
-    },
-    "next" : {
-      "href" : "http://localhost:8080/api/scrap?page=2&amp;size=10&amp;sort=id,desc"
-    },
-    "last" : {
-      "href" : "http://localhost:8080/api/scrap?page=2&amp;size=10&amp;sort=id,desc"
-    },
-    "profile" : {
-      "href" : "/docs/index.html#resources-scrap-list"
-    }
-  },
-  "page" : {
-    "size" : 10,
-    "totalElements" : 30,
-    "totalPages" : 3,
-    "number" : 1
-  }
+  "lists" : [ {
+    "id" : 32,
+    "url" : "url29",
+    "data" : "data29",
+    "createdAt" : "2020-05-14T04:02:53.105199"
+  }, {
+    "id" : 31,
+    "url" : "url28",
+    "data" : "data28",
+    "createdAt" : "2020-05-14T04:02:53.102439"
+  }, {
+    "id" : 30,
+    "url" : "url27",
+    "data" : "data27",
+    "createdAt" : "2020-05-14T04:02:53.098229"
+  }, {
+    "id" : 29,
+    "url" : "url26",
+    "data" : "data26",
+    "createdAt" : "2020-05-14T04:02:53.096097"
+  }, {
+    "id" : 28,
+    "url" : "url25",
+    "data" : "data25",
+    "createdAt" : "2020-05-14T04:02:53.090636"
+  }, {
+    "id" : 27,
+    "url" : "url24",
+    "data" : "data24",
+    "createdAt" : "2020-05-14T04:02:53.085497"
+  }, {
+    "id" : 26,
+    "url" : "url23",
+    "data" : "data23",
+    "createdAt" : "2020-05-14T04:02:53.08226"
+  }, {
+    "id" : 25,
+    "url" : "url22",
+    "data" : "data22",
+    "createdAt" : "2020-05-14T04:02:53.07965"
+  }, {
+    "id" : 24,
+    "url" : "url21",
+    "data" : "data21",
+    "createdAt" : "2020-05-14T04:02:53.076823"
+  }, {
+    "id" : 23,
+    "url" : "url20",
+    "data" : "data20",
+    "createdAt" : "2020-05-14T04:02:53.074247"
+  }, {
+    "id" : 22,
+    "url" : "url19",
+    "data" : "data19",
+    "createdAt" : "2020-05-14T04:02:53.071082"
+  }, {
+    "id" : 21,
+    "url" : "url18",
+    "data" : "data18",
+    "createdAt" : "2020-05-14T04:02:53.068168"
+  }, {
+    "id" : 20,
+    "url" : "url17",
+    "data" : "data17",
+    "createdAt" : "2020-05-14T04:02:53.065363"
+  }, {
+    "id" : 19,
+    "url" : "url16",
+    "data" : "data16",
+    "createdAt" : "2020-05-14T04:02:53.06046"
+  }, {
+    "id" : 18,
+    "url" : "url15",
+    "data" : "data15",
+    "createdAt" : "2020-05-14T04:02:53.05736"
+  }, {
+    "id" : 17,
+    "url" : "url14",
+    "data" : "data14",
+    "createdAt" : "2020-05-14T04:02:53.054485"
+  }, {
+    "id" : 16,
+    "url" : "url13",
+    "data" : "data13",
+    "createdAt" : "2020-05-14T04:02:53.052013"
+  }, {
+    "id" : 15,
+    "url" : "url12",
+    "data" : "data12",
+    "createdAt" : "2020-05-14T04:02:53.04778"
+  }, {
+    "id" : 14,
+    "url" : "url11",
+    "data" : "data11",
+    "createdAt" : "2020-05-14T04:02:53.044893"
+  }, {
+    "id" : 13,
+    "url" : "url10",
+    "data" : "data10",
+    "createdAt" : "2020-05-14T04:02:53.03973"
+  }, {
+    "id" : 12,
+    "url" : "url9",
+    "data" : "data9",
+    "createdAt" : "2020-05-14T04:02:53.036997"
+  }, {
+    "id" : 11,
+    "url" : "url8",
+    "data" : "data8",
+    "createdAt" : "2020-05-14T04:02:53.032913"
+  }, {
+    "id" : 10,
+    "url" : "url7",
+    "data" : "data7",
+    "createdAt" : "2020-05-14T04:02:53.029444"
+  }, {
+    "id" : 9,
+    "url" : "url6",
+    "data" : "data6",
+    "createdAt" : "2020-05-14T04:02:53.026075"
+  }, {
+    "id" : 8,
+    "url" : "url5",
+    "data" : "data5",
+    "createdAt" : "2020-05-14T04:02:53.023184"
+  }, {
+    "id" : 7,
+    "url" : "url4",
+    "data" : "data4",
+    "createdAt" : "2020-05-14T04:02:53.02016"
+  }, {
+    "id" : 6,
+    "url" : "url3",
+    "data" : "data3",
+    "createdAt" : "2020-05-14T04:02:53.017217"
+  }, {
+    "id" : 5,
+    "url" : "url2",
+    "data" : "data2",
+    "createdAt" : "2020-05-14T04:02:53.014231"
+  }, {
+    "id" : 4,
+    "url" : "url1",
+    "data" : "data1",
+    "createdAt" : "2020-05-14T04:02:53.010921"
+  }, {
+    "id" : 3,
+    "url" : "url0",
+    "data" : "data0",
+    "createdAt" : "2020-05-14T04:02:53.007826"
+  } ]
 }</code></pre>
 </div>
 </div>
 </div>
 <div class="sect3">
 <h4 id="resources-scrap-list_links"><a class="link" href="#resources-scrap-list_links">Links</a></h4>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Relation</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>self</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">link to self</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>next</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">link to update-scrap</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>last</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">link to update-scrap</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>prev</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">link to update-scrap</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>first</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">link to update-scrap</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>profile</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">link to profile</p></td>
-</tr>
-</tbody>
-</table>
+<div class="paragraph">
+<p>Snippet links not found for operation::query-scrap</p>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -996,7 +929,7 @@ Content-Length: 3095
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8080/api/scrap' -i -X POST \
     -H 'Content-Type: application/json;charset=UTF-8' \
-    -H 'X-AUTH-TOKEN: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYmNAZW1haWwuY29tIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IlJPTEVfQVVUSE9SSVpFRCJ9XSwiaWF0IjoxNTg4MjQ1NzIzLCJleHAiOjE1ODgyNDkzMjN9.CgTFfsat8Ik6DoxUjMLGrrYpU6B3uJ0GCsPwpBU1sww' \
+    -H 'X-AUTH-TOKEN: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYmNAZW1haWwuY29tIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IlJPTEVfQURNSU4ifV0sImlhdCI6MTU4OTM5NjU3MywiZXhwIjoxNTg5Mzk2ODczfQ.2OFIP2tbfCOrfm1FHWSzFvvAspUahAOGr5d4bJnEeXk' \
     -H 'Accept: application/hal+json' \
     -d '{
   "url" : "http://naver.com",
@@ -1011,7 +944,7 @@ Content-Length: 3095
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /api/scrap HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-X-AUTH-TOKEN: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYmNAZW1haWwuY29tIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IlJPTEVfQVVUSE9SSVpFRCJ9XSwiaWF0IjoxNTg4MjQ1NzIzLCJleHAiOjE1ODgyNDkzMjN9.CgTFfsat8Ik6DoxUjMLGrrYpU6B3uJ0GCsPwpBU1sww
+X-AUTH-TOKEN: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYmNAZW1haWwuY29tIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IlJPTEVfQURNSU4ifV0sImlhdCI6MTU4OTM5NjU3MywiZXhwIjoxNTg5Mzk2ODczfQ.2OFIP2tbfCOrfm1FHWSzFvvAspUahAOGr5d4bJnEeXk
 Accept: application/hal+json
 Content-Length: 60
 Host: localhost:8080
@@ -1061,26 +994,18 @@ Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
 X-Frame-Options: DENY
-Content-Length: 457
+Content-Length: 255
 
 {
-  "id" : 33,
-  "url" : "http://naver.com",
-  "data" : "&lt;html&gt;&lt;/html&gt;",
-  "createdAt" : "2020-04-30T20:22:03.421769",
-  "_links" : {
-    "self" : {
-      "href" : "http://localhost:8080/api/scrap/33"
-    },
-    "query-scrap" : {
-      "href" : "http://localhost:8080/api/scrap/33"
-    },
-    "update-scrap" : {
-      "href" : "http://localhost:8080/api/scrap/33"
-    },
-    "profile" : {
-      "href" : "/docs/index.html#resources-scrap-create"
-    }
+  "code" : 200,
+  "success" : true,
+  "timestamp" : "2020-05-13T19:02:53.872+0000",
+  "message" : "success!!",
+  "data" : {
+    "id" : 33,
+    "url" : "http://naver.com",
+    "data" : "&lt;html&gt;&lt;/html&gt;",
+    "createdAt" : "2020-05-14T04:02:53.858712"
   }
 }</code></pre>
 </div>
@@ -1124,44 +1049,44 @@ Content-Length: 457
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>code</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">response code</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>success</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">api success boolean</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>timestamp</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">response time</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>message</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">response message</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.id</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">scrap id</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>url</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.url</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">scrap url</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.data</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">scrap data</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>createdAt</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.createdAt</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">scrap createdAt</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>_links.self.href</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">links to self</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>_links.query-scrap.href</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">links to query-scrap</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>_links.update-scrap.href</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">links to update-scrap</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>_links.profile.href</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">links to profile</p></td>
 </tr>
 </tbody>
 </table>
@@ -1215,7 +1140,8 @@ Content-Length: 457
 <h4 id="resources-scrap-get_curl_request"><a class="link" href="#resources-scrap-get_curl_request">Example request</a></h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8080/api/scrap/34' -i -X GET</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8080/api/scrap/34' -i -X GET \
+    -H 'X-AUTH-TOKEN: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYmNAZW1haWwuY29tIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IlJPTEVfQURNSU4ifV0sImlhdCI6MTU4OTM5NjU3NCwiZXhwIjoxNTg5Mzk2ODc0fQ.iSJ0ECQ_c_D6yKiOjUtSxVKhlUoHl6UNRfogJJi3VVw'</code></pre>
 </div>
 </div>
 </div>
@@ -1231,63 +1157,22 @@ Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
 X-Frame-Options: DENY
-Content-Length: 441
+Content-Length: 106
 
 {
   "id" : 34,
   "url" : "asd",
   "data" : "&lt;html&gt;&lt;/html&gt;",
-  "createdAt" : "2020-04-30T20:22:03.785673",
-  "_links" : {
-    "self" : {
-      "href" : "http://localhost:8080/api/scrap/34"
-    },
-    "query-scrap" : {
-      "href" : "http://localhost:8080/api/scrap/34"
-    },
-    "update-scrap" : {
-      "href" : "http://localhost:8080/api/scrap/34"
-    },
-    "profile" : {
-      "href" : "/docs/index.html#resources-scrap-get"
-    }
-  }
+  "createdAt" : "2020-05-14T04:02:53.975059"
 }</code></pre>
 </div>
 </div>
 </div>
 <div class="sect3">
 <h4 id="resources-scrap-get_links"><a class="link" href="#resources-scrap-get_links">Links</a></h4>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Relation</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>self</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">link to self</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>query-scrap</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">link to query-scrap</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>update-scrap</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">link to create-scrap</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>profile</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">link to profile</p></td>
-</tr>
-</tbody>
-</table>
+<div class="paragraph">
+<p>Snippet links not found for operation::get-scrap</p>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -1330,7 +1215,7 @@ Content-Length: 441
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ curl 'http://localhost:8080/api/scrap/2' -i -X PUT \
     -H 'Content-Type: application/json;charset=UTF-8' \
-    -H 'X-AUTH-TOKEN: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYmNAZW1haWwuY29tIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IlJPTEVfQVVUSE9SSVpFRCJ9XSwiaWF0IjoxNTg4MjQ1NzIyLCJleHAiOjE1ODgyNDkzMjJ9.M4-VAAfe1X3whr3q5CfWAJ6Nv8U0OxGFrJAJ6Q-eLGw' \
+    -H 'X-AUTH-TOKEN: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYmNAZW1haWwuY29tIiwicm9sZXMiOlt7ImF1dGhvcml0eSI6IlJPTEVfQURNSU4ifV0sImlhdCI6MTU4OTM5NjU3MiwiZXhwIjoxNTg5Mzk2ODcyfQ.KuJlAqgabKbTiqfuOC02lJlujxHv17ZHqcFMiff5iL0' \
     -H 'Accept: application/hal+json' \
     -d '{
   "url" : "url",
@@ -1351,63 +1236,22 @@ Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
 X-Frame-Options: DENY
-Content-Length: 431
+Content-Length: 96
 
 {
   "id" : 2,
   "url" : "url",
   "data" : "data",
-  "createdAt" : "2020-04-30T20:22:01.959291",
-  "_links" : {
-    "self" : {
-      "href" : "http://localhost:8080/api/scrap/2"
-    },
-    "query-scrap" : {
-      "href" : "http://localhost:8080/api/scrap/2"
-    },
-    "create-scrap" : {
-      "href" : "http://localhost:8080/api/scrap/2"
-    },
-    "profile" : {
-      "href" : "/docs/index.html#resources-scrap-update"
-    }
-  }
+  "createdAt" : "2020-05-14T04:02:52.550926"
 }</code></pre>
 </div>
 </div>
 </div>
 <div class="sect3">
 <h4 id="resources-scrap-update_links"><a class="link" href="#resources-scrap-update_links">Links</a></h4>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Relation</th>
-<th class="tableblock halign-left valign-top">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>self</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">link to self</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>query-scrap</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">link to query-scrap</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>create-scrap</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">link to create-scrap</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>profile</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">link to profile</p></td>
-</tr>
-</tbody>
-</table>
+<div class="paragraph">
+<p>Snippet links not found for operation::update-scrap</p>
+</div>
 </div>
 </div>
 </div>

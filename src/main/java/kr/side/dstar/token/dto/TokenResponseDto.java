@@ -10,10 +10,10 @@ public class TokenResponseDto {
 
     private String accessToken;
     private String refreshToken;
-    private int expire;
+    private Long expire;
 
     @Builder
-    public TokenResponseDto(String accessToken, String refreshToken, int expire) {
+    public TokenResponseDto(String accessToken, String refreshToken, Long expire) {
         this.accessToken   = accessToken;
         this.refreshToken  = refreshToken;
         this.expire         = expire;

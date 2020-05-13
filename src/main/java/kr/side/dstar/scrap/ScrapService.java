@@ -7,7 +7,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -47,9 +49,14 @@ public class ScrapService {
     }
 
     @Transactional(readOnly = true)
-    public List<ScrapListReponseDto> findAllDesc() {
-        return scrapRepository.findAllDesc().stream()
+    public Map<String, List<ScrapListReponseDto>> findAllDesc() {
+        List<ScrapListReponseDto> lists =  scrapRepository.findAllDesc().stream()
                 .map(ScrapListReponseDto::new)
                 .collect(Collectors.toList());
+
+        Map<String, List<ScrapListReponseDto>> result = new HashMap<>();
+        result.put("lists", lists);
+
+        return result;
     }
 }

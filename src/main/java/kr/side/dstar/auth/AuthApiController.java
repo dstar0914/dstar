@@ -6,6 +6,7 @@ import kr.side.dstar.member.MemberRepository;
 import kr.side.dstar.member.MemberService;
 import kr.side.dstar.token.JwtTokenProvider;
 import kr.side.dstar.token.dto.TokenRequestDto;
+import kr.side.dstar.token.dto.TokenResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -16,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -76,32 +75,34 @@ public class AuthApiController {
     }
 
     // 토큰 생성 메소드
-    public Map<String, Object> InitToken(String email) {
+    public TokenResponseDto InitToken(String email) {
         UserDetails user = memberService.loadUserByUsername(email);
 
         String accessToken = jwtTokenProvider.createToken(user.getUsername(), user.getAuthorities());
         String refreshToken = jwtTokenProvider.createRefreshToken(user.getUsername(), user.getAuthorities());
 
-        Map<String, Object> response = new HashMap<>();
-        response.put("accessToken", accessToken);
-        response.put("refreshToken", refreshToken);
-        response.put("expire", jwtTokenProvider.getExpiration(accessToken).getTime()/1000);
+        TokenResponseDto responseDto = TokenResponseDto.builder()
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
+                .expire(jwtTokenProvider.getExpiration(accessToken).getTime()/1000)
+                .build();
 
         // refresh_token 회원 DB에 업데이트
         memberService.updateRefreshToken(user.getUsername(),refreshToken);
 
-        return response;
+        return responseDto;
     }
 
-    public Map<String, Object> createToken(String email) {
+    public TokenResponseDto createToken(String email) {
         UserDetails user = memberService.loadUserByUsername(email);
 
         String accessToken = jwtTokenProvider.createToken(user.getUsername(), user.getAuthorities());
 
-        Map<String, Object> response = new HashMap<>();
-        response.put("access_token", accessToken);
-        response.put("expire", jwtTokenProvider.getExpiration(accessToken).getTime()/1000);
+        TokenResponseDto responseDto = TokenResponseDto.builder()
+                .accessToken(accessToken)
+                .expire(jwtTokenProvider.getExpiration(accessToken).getTime()/1000)
+                .build();
 
-        return response;
+        return responseDto;
     }
 }
