@@ -11,6 +11,7 @@ public class ResponseService {
     // 단일건 결과를 처리하는 메소드
     public <T> SingleResultResponse<T> getSingleResult(T data) {
         SingleResultResponse<T> result = new SingleResultResponse<>();
+
         result.setData(data);
 
         setSuccessResult(result);

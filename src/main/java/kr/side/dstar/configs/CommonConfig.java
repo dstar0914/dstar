@@ -1,9 +1,9 @@
 package kr.side.dstar.configs;
 
-import kr.side.dstar.member.Member;
+import kr.side.dstar.member.MemberRole;
 import kr.side.dstar.member.MemberService;
 import kr.side.dstar.member.MemberStatus;
-import kr.side.dstar.member.MemberRole;
+import kr.side.dstar.member.dto.MemberSaveRequestDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -31,7 +31,7 @@ public class CommonConfig {
 
             @Override
             public void run(ApplicationArguments args) throws Exception {
-                Member member = Member.builder()
+                MemberSaveRequestDto member = MemberSaveRequestDto.builder()
                         .email("test@email.com")
                         .password("pass")
                         .status(MemberStatus.AUTHORIZED)

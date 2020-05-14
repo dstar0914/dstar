@@ -1,5 +1,7 @@
 package kr.side.dstar.member;
 
+import kr.side.dstar.member.dto.MemberResponseDto;
+import kr.side.dstar.member.dto.MemberSaveRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -21,10 +23,10 @@ public class MemberService implements UserDetailsService {
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
-    public Member saveMember(Member member) {
-        member.setPassword(passwordEncoder.encode(member.getPassword()));
+    public MemberResponseDto saveMember(MemberSaveRequestDto requestDto) {
+        requestDto.setPassword(passwordEncoder.encode(requestDto.getPassword()));
 
-        return memberRepository.save(member);
+        return new MemberResponseDto(memberRepository.save(requestDto.toEntity()));
     }
 
     @Transactional

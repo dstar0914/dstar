@@ -14,13 +14,12 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Service
 public class ScrapService {
+
     private final ScrapRepository scrapRepository;
 
     @Transactional
     public ScrapResponseDto save(ScrapSaveRequestDto requestDto) {
-        Scrap saveScrap = scrapRepository.save(requestDto.toEntity());
-
-        return new ScrapResponseDto(saveScrap);
+        return new ScrapResponseDto(scrapRepository.save(requestDto.toEntity()));
     }
 
     @Transactional

@@ -1,5 +1,7 @@
 package kr.side.dstar.member;
 
+import kr.side.dstar.member.dto.MemberResponseDto;
+import kr.side.dstar.member.dto.MemberSaveRequestDto;
 import org.hamcrest.Matchers;
 import org.junit.After;
 import org.junit.Rule;
@@ -14,6 +16,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Collections;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -41,19 +45,46 @@ public class MemberServiceTest {
     }
 
     @Test
+    public void save() throws Exception {
+        //given
+        String name = "tester";
+        String password = "pass";
+        String phone = "010-1234-4321";
+        String email = "tester@email.com";
+        MemberStatus status = MemberStatus.AUTHORIZED;
+        Set<MemberRole> roles = Collections.singleton(MemberRole.ADMIN);
+
+        MemberSaveRequestDto requestDto = MemberSaveRequestDto.builder()
+                .email(email)
+                .name(name)
+                .password(password)
+                .phone(phone)
+                .status(status)
+                .roles(roles)
+                .build();
+
+        //when
+        requestDto.setPassword(passwordEncoder.encode(password));
+        MemberResponseDto responseDto = memberService.saveMember(requestDto);
+
+        //then
+        assertThat(responseDto.getEmail().equals(email));
+    }
+
+    @Test
     public void findByUserName() throws Exception {
         //given
         String password     = "pass";
         String name         = "email@email.com";
 
-        Member member = Member.builder()
+        MemberSaveRequestDto member = MemberSaveRequestDto.builder()
                 .email(name)
                 .password(password)
                 .status(MemberStatus.AUTHORIZED)
                 .roles(Stream.of(MemberRole.ADMIN).collect(Collectors.toSet()))
                 .build();
 
-        Member result = memberService.saveMember(member);
+        memberService.saveMember(member);
 
         //when
         UserDetailsService userDetailsService = memberService;

@@ -2,10 +2,10 @@ package kr.side.dstar.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import kr.side.dstar.auth.dto.LoginRequestDto;
-import kr.side.dstar.member.Member;
 import kr.side.dstar.member.MemberRole;
 import kr.side.dstar.member.MemberService;
 import kr.side.dstar.member.MemberStatus;
+import kr.side.dstar.member.dto.MemberSaveRequestDto;
 import kr.side.dstar.scrap.Scrap;
 import kr.side.dstar.scrap.ScrapRepository;
 import kr.side.dstar.scrap.dto.ScrapSaveRequestDto;
@@ -89,7 +89,7 @@ public class ScrapApiControllerTest {
         String username = "abc@email.com";
         String password = "pass";
 
-        Member member = Member.builder()
+        MemberSaveRequestDto member = MemberSaveRequestDto.builder()
                 .email(username)
                 .password(password)
                 .roles(Stream.of(MemberRole.ADMIN).collect(Collectors.toSet()))

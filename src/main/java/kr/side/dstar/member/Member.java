@@ -12,6 +12,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 public class Member extends BaseTimeEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -46,6 +47,11 @@ public class Member extends BaseTimeEntity {
         this.roles      = roles;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    // 업데이트
     public Member update(String name, String phone) {
         this.name   = name;
         this.phone  = phone;
@@ -53,10 +59,7 @@ public class Member extends BaseTimeEntity {
         return this;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
+    // 업데이트 refresh_token
     public Member updateRefreshToken(String refreshToken) {
         this.refreshToken = refreshToken;
 
