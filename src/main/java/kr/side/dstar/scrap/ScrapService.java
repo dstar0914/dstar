@@ -8,9 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -37,7 +35,7 @@ public class ScrapService {
     @Transactional
     public void delete(Long id) {
         Scrap scrap = scrapRepository.findById(id)
-                .orElseThrow( () -> new IllegalArgumentException("해당 게시글이 없습니다. id="+id) );
+                .orElseThrow( () -> new IllegalArgumentException("해당 스크랩이 없습니다. id="+id) );
 
         scrapRepository.delete(scrap);
     }
@@ -45,19 +43,16 @@ public class ScrapService {
     @Transactional(readOnly = true)
     public ScrapResponseDto findById(Long id) {
         Scrap entity = scrapRepository.findById(id)
-                .orElseThrow( () -> new IllegalArgumentException("해당 게시글이 없습니다. id="+id) );
+                .orElseThrow( () -> new IllegalArgumentException("해당 스크랩이 없습니다. id="+id) );
 
         return new ScrapResponseDto(entity);
     }
 
     @Transactional(readOnly = true)
-    public Map<String, List<ScrapListReponseDto>> findAllDesc() {
-        List<ScrapListReponseDto> lists =  scrapRepository.findAllDesc().stream()
+    public List<ScrapListReponseDto> findAllDesc() {
+        List<ScrapListReponseDto> result =  scrapRepository.findAllDesc().stream()
                 .map(ScrapListReponseDto::new)
                 .collect(Collectors.toList());
-
-        Map<String, List<ScrapListReponseDto>> result = new HashMap<>();
-        result.put("lists", lists);
 
         return result;
     }

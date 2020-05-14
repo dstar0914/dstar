@@ -39,11 +39,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @RunWith(SpringRunner.class)
 @Transactional
-//@ActiveProfiles("test")
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest
 public class ScrapApiControllerTest {
-//    @LocalServerPort
-//    private int port;
 
     @Autowired
     ObjectMapper objectMapper;
@@ -84,7 +81,7 @@ public class ScrapApiControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(requestDto)))
                 .andDo(print())
-                .andExpect(status().isCreated())
+                .andExpect(status().isOk())
                 .andExpect(jsonPath(path+"id").exists());
     }
 
@@ -116,9 +113,6 @@ public class ScrapApiControllerTest {
         ObjectMapper mapper = new ObjectMapper();
         TokenResponseDto token = mapper.readValue(responseBody, TokenResponseDto.class);
 
-        log.info("==============================");
-        log.info("token", token.getAccessToken());
-
         return token.getAccessToken();
     }
 
@@ -144,13 +138,17 @@ public class ScrapApiControllerTest {
                 .build();
 
         //when, then
+        String path = "data.";
+
         mockMvc.perform(put("/api/scrap/{id}",updateId)
                 .header("X-AUTH-TOKEN", getJwtToken())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(requestDto)))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("id").exists());
+                .andExpect(jsonPath(path+"id").exists())
+                .andExpect(jsonPath(path+"url").value(expectedUrl))
+                .andExpect(jsonPath(path+"data").value(expectedData));
     }
 
     @Test
@@ -167,19 +165,26 @@ public class ScrapApiControllerTest {
         Long savedId = savedScrap.getId();
 
         //when, then
+        String path = "data.";
+
         mockMvc.perform(get("/api/scrap/{id}", savedId)
                 .header("X-AUTH-TOKEN", getJwtToken()))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("id").exists());
+                .andExpect(jsonPath(path+"id").exists())
+                .andExpect(jsonPath(path+"url").value(url))
+                .andExpect(jsonPath(path+"data").value(data));
     }
 
     @Test
     public void delete() throws Exception {
         //given
+        String url  = "delete_url";
+        String data = "delete_data";
+
         Scrap savedScrap = scrapRepository.save(Scrap.builder()
-                .url("deleteurl")
-                .data("deletedata")
+                .url(url)
+                .data(data)
                 .build());
 
         Long deleteId = savedScrap.getId();
@@ -200,10 +205,14 @@ public class ScrapApiControllerTest {
         });
 
         //when
+        String path = "list[0].";
+
         this.mockMvc.perform(get("/api/scrap")
                 .header("X-AUTH-TOKEN", getJwtToken()))
                 .andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(jsonPath(path+"id").exists())
+                .andExpect(jsonPath(path+"url").exists());
     }
 
     private void createScrap(int i) {
