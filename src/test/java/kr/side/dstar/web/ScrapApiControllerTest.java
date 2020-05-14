@@ -177,6 +177,30 @@ public class ScrapApiControllerTest {
     }
 
     @Test
+    public void not_fount_getScrap() throws Exception {
+        //given
+        String url  = "asd";
+        String data = "<html></html>";
+
+        Scrap savedScrap = scrapRepository.save(Scrap.builder()
+                .url(url)
+                .data(data)
+                .build());
+
+        Long savedId = savedScrap.getId()+1;
+
+        //when, then
+        mockMvc.perform(get("/api/scrap/{id}", savedId)
+                .header("X-AUTH-TOKEN", getJwtToken()))
+                .andDo(print())
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("code").value(-11))
+                .andExpect(jsonPath("error").exists())
+                .andExpect(jsonPath("success").value(false))
+                .andExpect(jsonPath("error.path").exists());
+    }
+
+    @Test
     public void delete() throws Exception {
         //given
         String url  = "delete_url";

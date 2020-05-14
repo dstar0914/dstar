@@ -32,12 +32,12 @@ public class ScrapApiController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity findById(@PathVariable Long id) {
-        return ResponseEntity.ok(responseService.getSingleResult(scrapService.findById(id)));
+    public ResponseEntity getSingle(@PathVariable Long id) {
+        return ResponseEntity.ok(responseService.getSingleResult(scrapService.getSingle(id)));
     }
 
     @GetMapping
     public ResponseEntity getList() {
-        return ResponseEntity.ok(responseService.getListResult(scrapService.findAllDesc()));
+        return ResponseEntity.ok(responseService.getListResult(scrapService.getList()));
     }
 }

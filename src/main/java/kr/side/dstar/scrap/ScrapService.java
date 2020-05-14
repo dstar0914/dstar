@@ -1,9 +1,9 @@
 package kr.side.dstar.scrap;
 
-import kr.side.dstar.scrap.dto.ScrapListReponseDto;
 import kr.side.dstar.scrap.dto.ScrapResponseDto;
 import kr.side.dstar.scrap.dto.ScrapSaveRequestDto;
 import kr.side.dstar.scrap.dto.ScrapUpdateRequestDto;
+import kr.side.dstar.scrap.exception.CScrapNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,32 +26,31 @@ public class ScrapService {
     @Transactional
     public ScrapResponseDto update(Long id, ScrapUpdateRequestDto requestDto) {
         Scrap scrap = scrapRepository.findById(id)
-                .orElseThrow( () -> new IllegalArgumentException("해당 게시글이 없습니다. id="+id) );
+                .orElseThrow(CScrapNotFoundException::new);
 
         return scrap.update(requestDto.getUrl(), requestDto.getData());
-        /* scrap 자체를 리턴해보기 */
     }
 
     @Transactional
     public void delete(Long id) {
         Scrap scrap = scrapRepository.findById(id)
-                .orElseThrow( () -> new IllegalArgumentException("해당 스크랩이 없습니다. id="+id) );
+                .orElseThrow(CScrapNotFoundException::new);
 
         scrapRepository.delete(scrap);
     }
 
     @Transactional(readOnly = true)
-    public ScrapResponseDto findById(Long id) {
+    public ScrapResponseDto getSingle(Long id) {
         Scrap entity = scrapRepository.findById(id)
-                .orElseThrow( () -> new IllegalArgumentException("해당 스크랩이 없습니다. id="+id) );
+                .orElseThrow(() -> new CScrapNotFoundException("custom error message"));
 
         return new ScrapResponseDto(entity);
     }
 
     @Transactional(readOnly = true)
-    public List<ScrapListReponseDto> findAllDesc() {
-        List<ScrapListReponseDto> result =  scrapRepository.findAllDesc().stream()
-                .map(ScrapListReponseDto::new)
+    public List<ScrapResponseDto> getList() {
+        List<ScrapResponseDto> result =  scrapRepository.findAllDesc().stream()
+                .map(ScrapResponseDto::new)
                 .collect(Collectors.toList());
 
         return result;

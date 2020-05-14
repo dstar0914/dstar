@@ -1,7 +1,7 @@
 package kr.side.dstar.member;
 
-import kr.side.dstar.member.*;
 import org.hamcrest.Matchers;
+import org.junit.After;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -35,11 +35,10 @@ public class MemberServiceTest {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-//    @After
-//    @Test
-//    public void cleanAll() throws Exception {
-//        memberRepository.deleteAll();
-//    }
+    @After
+    public void cleanAll() throws Exception {
+        memberRepository.deleteAll();
+    }
 
     @Test
     public void findByUserName() throws Exception {
