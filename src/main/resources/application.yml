@@ -16,7 +16,7 @@ spring:
     password: root
     driver-class-name: org.mariadb.jdbc.Driver
   jwt:
-    secret: dstar0914
+    secret: local-test
 
 # 운영 환경
 ---
