@@ -1,5 +1,6 @@
 package kr.side.dstar.scrap;
 
+import kr.side.dstar.scrap.dto.ScrapResponseDto;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.Link;
 

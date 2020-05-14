@@ -1,6 +1,7 @@
 package kr.side.dstar.scrap;
 
 import kr.side.dstar.scrap.dto.ScrapListReponseDto;
+import kr.side.dstar.scrap.dto.ScrapResponseDto;
 import kr.side.dstar.scrap.dto.ScrapSaveRequestDto;
 import kr.side.dstar.scrap.dto.ScrapUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
@@ -41,6 +42,7 @@ public class ScrapService {
         scrapRepository.delete(scrap);
     }
 
+    @Transactional(readOnly = true)
     public ScrapResponseDto findById(Long id) {
         Scrap entity = scrapRepository.findById(id)
                 .orElseThrow( () -> new IllegalArgumentException("해당 게시글이 없습니다. id="+id) );

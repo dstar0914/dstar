@@ -1,5 +1,6 @@
-package kr.side.dstar.scrap;
+package kr.side.dstar.scrap.dto;
 
+import kr.side.dstar.scrap.Scrap;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.hateoas.server.core.Relation;
@@ -21,14 +22,5 @@ public class ScrapResponseDto {
         this.id         = scrap.getId();
         this.data       = scrap.getData();
         this.createdAt  = scrap.getCreatedAt();
-    }
-
-    public Scrap toEntity() {
-        Scrap scrap = Scrap.builder()
-                .url(url)
-                .data(data)
-                .build();
-
-        return scrap;
     }
 }

@@ -1,6 +1,7 @@
 package kr.side.dstar.scrap;
 
 import kr.side.dstar.common.BaseTimeEntity;
+import kr.side.dstar.scrap.dto.ScrapResponseDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,6 +1,7 @@
 package kr.side.dstar.scrap;
 
 import kr.side.dstar.response.ResponseService;
+import kr.side.dstar.scrap.dto.ScrapResponseDto;
 import kr.side.dstar.scrap.dto.ScrapSaveRequestDto;
 import kr.side.dstar.scrap.dto.ScrapUpdateRequestDto;
 import lombok.RequiredArgsConstructor;

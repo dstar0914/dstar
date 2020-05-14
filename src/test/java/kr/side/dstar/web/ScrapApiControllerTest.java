@@ -2,7 +2,6 @@ package kr.side.dstar.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import kr.side.dstar.auth.dto.LoginRequestDto;
-import kr.side.dstar.common.RestDocsConfiguration;
 import kr.side.dstar.member.Member;
 import kr.side.dstar.member.MemberRole;
 import kr.side.dstar.member.MemberService;
@@ -18,12 +17,8 @@ import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
-import org.springframework.hateoas.MediaTypes;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -35,9 +30,6 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import static org.springframework.restdocs.headers.HeaderDocumentation.*;
-import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
-import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -45,10 +37,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @Slf4j
 @AutoConfigureMockMvc
-@AutoConfigureRestDocs
 @RunWith(SpringRunner.class)
 @Transactional
-@Import(RestDocsConfiguration.class)
 //@ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ScrapApiControllerTest {
@@ -92,37 +82,10 @@ public class ScrapApiControllerTest {
         mockMvc.perform(post("/api/scrap")
                 .header("X-AUTH-TOKEN", getJwtToken())
                 .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaTypes.HAL_JSON)
                 .content(objectMapper.writeValueAsString(requestDto)))
                 .andDo(print())
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath(path+"id").exists())
-                .andDo(document(
-                        "create-scrap",
-                        requestHeaders(
-                                headerWithName(HttpHeaders.ACCEPT).description("request header"),
-                                headerWithName(HttpHeaders.CONTENT_TYPE).description("request content type")
-                        ),
-                        requestFields(
-                                fieldWithPath("url").description("scrap url"),
-                                fieldWithPath("data").description("scrap data")
-                        ),
-                        responseHeaders(
-                                //headerWithName(HttpHeaders.LOCATION).description("response header"), 왜 에러나는지 모르겠음
-                                headerWithName(HttpHeaders.CONTENT_TYPE).description("response content type")
-                        ),
-                        responseFields(
-                                fieldWithPath("code").description("response code"),
-                                fieldWithPath("success").description("api success boolean"),
-                                fieldWithPath("timestamp").description("response time"),
-                                fieldWithPath("message").description("response message"),
-                                fieldWithPath(path+"id").description("scrap id"),
-                                fieldWithPath(path+"url").description("scrap url"),
-                                fieldWithPath(path+"data").description("scrap data"),
-                                fieldWithPath(path+"createdAt").description("scrap createdAt")
-                                //fieldWithPath("userId").description("scrap userId"),
-                        )
-                ));
+                .andExpect(jsonPath(path+"id").exists());
     }
 
     public String getJwtToken() throws Exception {
@@ -184,33 +147,10 @@ public class ScrapApiControllerTest {
         mockMvc.perform(put("/api/scrap/{id}",updateId)
                 .header("X-AUTH-TOKEN", getJwtToken())
                 .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaTypes.HAL_JSON)
                 .content(objectMapper.writeValueAsString(requestDto)))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("id").exists())
-                .andDo(document(
-                        "update-scrap",
-                        requestHeaders(
-                                headerWithName(HttpHeaders.ACCEPT).description("request header"),
-                                headerWithName(HttpHeaders.CONTENT_TYPE).description("request content type")
-                        ),
-                        requestFields(
-                                fieldWithPath("url").description("scrap url"),
-                                fieldWithPath("data").description("scrap data")
-                        ),
-                        responseHeaders(
-                                //headerWithName(HttpHeaders.LOCATION).description("response header"), 왜 에러나는지 모르겠음
-                                headerWithName(HttpHeaders.CONTENT_TYPE).description("response content type")
-                        ),
-                        responseFields(
-                                fieldWithPath("id").description("scrap id"),
-                                fieldWithPath("url").description("scrap url"),
-                                fieldWithPath("data").description("scrap data"),
-                                fieldWithPath("createdAt").description("scrap createdAt")
-                                //fieldWithPath("userId").description("scrap userId"),
-                        )
-                ));
+                .andExpect(jsonPath("id").exists());
     }
 
     @Test
@@ -231,21 +171,7 @@ public class ScrapApiControllerTest {
                 .header("X-AUTH-TOKEN", getJwtToken()))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("id").exists())
-                .andDo(document(
-                        "get-scrap",
-                        responseHeaders(
-                                //headerWithName(HttpHeaders.LOCATION).description("response header"), 왜 에러나는지 모르겠음
-                                headerWithName(HttpHeaders.CONTENT_TYPE).description("response content type")
-                        ),
-                        responseFields(
-                                fieldWithPath("id").description("scrap id"),
-                                fieldWithPath("url").description("scrap url"),
-                                fieldWithPath("data").description("scrap data"),
-                                fieldWithPath("createdAt").description("scrap createdAt")
-                                //fieldWithPath("userId").description("scrap userId"),
-                        )
-                ));
+                .andExpect(jsonPath("id").exists());
     }
 
     @Test
@@ -277,24 +203,7 @@ public class ScrapApiControllerTest {
         this.mockMvc.perform(get("/api/scrap")
                 .header("X-AUTH-TOKEN", getJwtToken()))
                 .andDo(print())
-                .andExpect(status().isOk())
-                .andDo(document(
-                        "query-scrap",
-                        responseHeaders(
-                                //headerWithName(HttpHeaders.LOCATION).description("response header"), 왜 에러나는지 모르겠음
-                                headerWithName(HttpHeaders.CONTENT_TYPE).description("response content type")
-                        ),
-                        responseFields(
-                                fieldWithPath("lists[].id").description("scrap id"),
-                                fieldWithPath("lists[].url").description("scrap url"),
-                                fieldWithPath("lists[].data").description("scrap data"),
-                                fieldWithPath("lists[].createdAt").description("scrap createdAt")
-                                //fieldWithPath("userId").description("scrap userId"),
-
-                        )
-                ));
-
-        //then
+                .andExpect(status().isOk());
     }
 
     private void createScrap(int i) {

@@ -2,7 +2,6 @@ plugins {
 	id 'org.springframework.boot' version '2.2.6.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
 	id 'java'
-	id "org.asciidoctor.convert" version "1.5.9.2"
 }
 
 group = 'kr.side'
@@ -20,40 +19,16 @@ dependencies {
 	compile('io.jsonwebtoken:jjwt:0.9.1')
 	compile('org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.1.0.RELEASE')
 
-	asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor'
 	compile('org.springframework.boot:spring-boot-starter-actuator')
-	compile('org.springframework.restdocs:spring-restdocs-mockmvc')
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+
 	implementation 'org.springframework.boot:spring-boot-starter-hateoas'
+
 	compile('org.projectlombok:lombok')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile group: 'junit', name: 'junit', version: '4.12'
-//	compile('mysql:mysql-connector-java')
 	compile('org.mariadb.jdbc:mariadb-java-client')
 	compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.11.0'
- 	//testCompile('com.h2database:h2')
-}
-
-asciidoctor {
-	dependsOn test
-}
-
-bootJar {
-	dependsOn asciidoctor
-	from ("${asciidoctor.outputDir}/html5") {
-		into 'static/docs'
-	}
-}
-
-task copyDocument(type: Copy) {
-	dependsOn asciidoctor
-
-	from file("build/asciidoc/html5/")
-	into file("src/main/resources/static/docs")
-}
-
-build {
-	dependsOn copyDocument
 }
 
 test {

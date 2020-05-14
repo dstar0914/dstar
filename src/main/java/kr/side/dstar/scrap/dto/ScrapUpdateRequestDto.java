@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class ScrapUpdateRequestDto {
+
     private String url;
     private String data;
 
