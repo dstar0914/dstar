@@ -35,7 +35,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                     .permitAll()
                 .mvcMatchers(HttpMethod.GET, "/profile")
                     .permitAll()
-                .mvcMatchers(HttpMethod.GET, "/actuator/health")
+                .mvcMatchers(HttpMethod.GET, "/actuator/**")
                     .permitAll()
                 .mvcMatchers(HttpMethod.GET, "/")
                     .permitAll()
